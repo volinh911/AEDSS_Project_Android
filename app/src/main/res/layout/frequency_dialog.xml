@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/title_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/frequency_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/button_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/button_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="'s frequency check"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/frequency_dialog_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_section"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/inconsolata"
+        android:textColor="@color/background_color"
+        android:textSize="15sp"
+        android:text="How often do you want to check the device's status?"
+        android:maxLines="2"
+        android:textAlignment="center"
+        />
+
+    <LinearLayout
+        android:id="@+id/frequency_param_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frequency_dialog_text"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="every"
+            android:fontFamily="@font/inconsolata"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/hours"
+            android:id="@+id/hour_spinner"
+            android:layout_marginLeft="5dp"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hour(s)"
+            android:fontFamily="@font/inconsolata"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/frequency_section"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginLeft="50dp"
+        app:cardElevation="0dp"
+        android:layout_below="@+id/frequency_param_section"
+        android:layout_centerHorizontal="true"
+        >
+
+        <Button
+            android:id="@+id/frequency_option_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_color"
+            android:text="Set frequency"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/inconsolata"
+            />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

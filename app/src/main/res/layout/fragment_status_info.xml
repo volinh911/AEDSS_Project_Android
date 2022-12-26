@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    tools:context=".fragment.StatusInfoFragment">
+
+    <LinearLayout
+        android:id="@+id/ac_section"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:weightSum="4">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ac_icon"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/inconsolata"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="Air Conditioner"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/on_icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/light_section"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:weightSum="4">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:src="@drawable/light_icon"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/inconsolata"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="Light"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/on_icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/door_section"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:weightSum="4">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:src="@drawable/door_icon"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/inconsolata"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="Door"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/on_icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gallery_section"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:weightSum="4">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:src="@drawable/camera_icon"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/inconsolata"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="Gallery"/>
+
+    </LinearLayout>
+
+</LinearLayout>

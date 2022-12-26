@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".activity.EditTimeActivity">
+
+    <LinearLayout
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        >
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back_icon"
+            app:tint="@color/white"
+            android:layout_gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginLeft="20dp"
+            />
+
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_marginLeft="50dp"
+            />
+
+        <ImageView
+            android:id="@+id/more_btn"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/more_icon"
+            app:tint="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/add_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/add_icon"
+            app:tint="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:visibility="gone"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_below="@id/navbar"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/device_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Device"
+        android:layout_below="@+id/line_navbar"
+        android:fontFamily="@font/inconsolata"
+        android:textColor="#878484"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="20dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/device_text"
+        android:id="@+id/device_option"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        >
+
+        <RadioButton
+            android:id="@+id/ac_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Air Conditioner"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:drawableStart="@drawable/ac_ic"
+            android:button="@android:color/transparent"
+            android:drawableTint="@color/white"
+            android:background="@drawable/choose_device_bg"
+            android:padding="5dp"
+            />
+
+        <RadioButton
+            android:id="@+id/light_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Light System"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:drawableStart="@drawable/light_ic"
+            android:button="@android:color/transparent"
+            android:drawableTint="@color/white"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/choose_device_bg"
+            android:padding="5dp"
+            />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/detail_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Detail"
+        android:layout_below="@+id/device_option"
+        android:fontFamily="@font/inconsolata"
+        android:textColor="#878484"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/day_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/detail_text"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Day: "
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:layout_marginLeft="40dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/day_spinner"
+            android:layout_marginLeft="50dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/repeat_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right|center"
+        android:layoutDirection="rtl"
+        android:text="Repeat:"
+        android:fontFamily="@font/inconsolata"
+        android:textColor="@color/button_color"
+        android:textSize="20sp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/day_section"
+        android:layout_marginTop="20dp"
+        android:buttonTint="@color/button_color"
+        android:paddingRight="50dp"/>
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Time: "
+        android:fontFamily="@font/inconsolata"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/repeat_option"
+        android:layout_marginLeft="40dp"/>
+
+    <LinearLayout
+        android:id="@+id/from_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time_text"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/from_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From:"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_below="@+id/day_section"
+            android:buttonTint="@color/white"
+            android:paddingLeft="30dp"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hour_spinner_from"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/min_spinner_from"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/period_spinner_from"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/to_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/from_section"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/to_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To:"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_below="@+id/day_section"
+            android:buttonTint="@color/white"
+            android:paddingLeft="30dp"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hour_spinner_to"
+            android:layout_marginLeft="30dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/min_spinner_to"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/period_spinner_to"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            />
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/to_section"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/button_color"
+            android:text="submit"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/inconsolata"
+            />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
