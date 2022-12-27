@@ -28,7 +28,10 @@ class GalleryAdapter(private val imageList: ArrayList<Image>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
         val image = imageList[position]
         holder.imageDate.text = image.date
-        Glide.with(holder.itemView.context).load(image.urlImage).into(holder.image);
+        Glide.with(holder.itemView.context)
+            .load(image.urlImage)
+            .placeholder(R.drawable.ic_launcher_foreground)
+            .into(holder.image);
 
         holder.imageItem.setOnClickListener {
             onImageClick?.invoke(image)

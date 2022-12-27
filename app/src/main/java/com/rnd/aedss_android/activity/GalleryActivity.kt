@@ -24,7 +24,7 @@ class GalleryActivity : AppCompatActivity() {
         imageListRcv.layoutManager = GridLayoutManager(this, 3)
         imageList = ArrayList()
         imageList.add(Image("25/12/2022", "https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1"))
-        imageList.add(Image("24/12/2022", "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pink_flower.jpg"))
+        imageList.add(Image("24/12/2022", "https://drive.google.com/file/d/1MWEaGf-YAuIASAFAKRXgCnaWe5OJWGZS/view"))
         imageList.add(Image("25/12/2022", "https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1"))
         imageList.add(Image("25/12/2022", "https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1"))
         imageList.add(Image("25/12/2022", "https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1"))
