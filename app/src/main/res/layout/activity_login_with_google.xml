@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".activity.LoginWithGoogleActivity">
+
+    <TextView
+        android:id="@+id/app_title_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inconsolata"
+        android:text="surveillance"
+        android:textColor="@color/white"
+        android:textSize="45sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/app_title_2"
+        android:layout_below="@id/app_title_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inconsolata"
+        android:text="system"
+        android:textColor="@color/white"
+        android:textSize="45sp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/button_color"
+            android:text="login with Google"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/inconsolata"
+            />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

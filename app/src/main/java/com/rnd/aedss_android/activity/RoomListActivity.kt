@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rnd.aedss_android.Model.Room
+import com.rnd.aedss_android.model.Room
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.adapter.RoomListAdapter
 

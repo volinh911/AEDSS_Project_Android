@@ -1,6 +1,5 @@
 package com.rnd.aedss_android.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.DBDefine
-import com.rnd.aedss_android.Model.TimeDetail
+import com.rnd.aedss_android.model.TimeDetail
 import com.rnd.aedss_android.R
 
 class TimeDetailAdapter(private val timeList:ArrayList<TimeDetail>) : RecyclerView.Adapter<TimeDetailAdapter.TimeDetailViewHoler>() {

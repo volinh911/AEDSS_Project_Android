@@ -30,9 +30,9 @@ public class DBDefine {
         }
 
         //for device
-        val acDevice = 0
-        val lightDevice = 1
-        val doorDevice = 2
-    }
+        const val acDevice = 0
+        const val lightDevice = 1
+        const val doorDevice = 2
 
+    }
 }

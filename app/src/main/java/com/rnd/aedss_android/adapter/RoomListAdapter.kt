@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.rnd.aedss_android.Model.Room
+import com.rnd.aedss_android.model.Room
 import com.rnd.aedss_android.R
 
 class RoomListAdapter(private val roomList:ArrayList<Room>) : RecyclerView.Adapter<RoomListAdapter.RoomListViewHolder>() {

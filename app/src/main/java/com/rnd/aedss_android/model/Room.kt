@@ -1,4 +1,4 @@
-package com.rnd.aedss_android.Model
+package com.rnd.aedss_android.model
 
 import android.os.Parcel
 import android.os.Parcelable

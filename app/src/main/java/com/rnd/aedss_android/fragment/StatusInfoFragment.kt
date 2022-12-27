@@ -14,10 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.rnd.aedss_android.DBDefine
-import com.rnd.aedss_android.Model.Gallery
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.GalleryActivity
-import com.rnd.aedss_android.activity.RoomListActivity
 
 class StatusInfoFragment : Fragment() {
 

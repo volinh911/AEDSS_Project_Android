@@ -103,6 +103,7 @@
             android:layout_height="30dp"
             android:src="@drawable/setting_icon"
             app:tint="@color/white"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_gravity="center"/>
 
     </LinearLayout>

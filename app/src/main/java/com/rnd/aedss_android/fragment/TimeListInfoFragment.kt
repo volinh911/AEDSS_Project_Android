@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.DBDefine
-import com.rnd.aedss_android.Model.TimeDetail
+import com.rnd.aedss_android.model.TimeDetail
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.EditTimeActivity
 import com.rnd.aedss_android.adapter.TimeDetailAdapter
