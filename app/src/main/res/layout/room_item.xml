@@ -24,7 +24,7 @@
             android:id="@+id/room_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Room 11B"
+            android:text=""
             android:textColor="@color/white"
             android:fontFamily="@font/inconsolata"
             android:textSize="20sp"

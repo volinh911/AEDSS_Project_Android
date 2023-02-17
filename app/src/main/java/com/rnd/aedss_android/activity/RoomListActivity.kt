@@ -3,22 +3,29 @@ package com.rnd.aedss_android.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.adapter.RoomListAdapter
+import com.rnd.aedss_android.datamodel.RoomData
 import com.rnd.aedss_android.utils.AuthenticationPreferences
+import com.rnd.aedss_android.utils.RetrofitInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class RoomListActivity : AppCompatActivity() {
+class RoomListActivity : AppCompatActivity(), Callback<RoomData> {
 
     private lateinit var roomListRcv: RecyclerView
-    private lateinit var roomList: ArrayList<Room>
-    private lateinit var roomListAdapter: RoomListAdapter
+    var roomList: MutableList<Room> = mutableListOf()
 
     private lateinit var logoutBtn: ImageView
 
@@ -39,18 +46,12 @@ class RoomListActivity : AppCompatActivity() {
         roomListRcv = findViewById(R.id.list_room)
         roomListRcv.setHasFixedSize(true)
         roomListRcv.layoutManager = LinearLayoutManager(this)
-        roomList = ArrayList()
+        roomListRcv.adapter = RoomListAdapter(applicationContext, roomList)
+        initData()
+    }
 
-        roomList.add(Room("Room 11C"))
-        roomList.add(Room("Room 11A"))
-        roomListAdapter = RoomListAdapter(roomList)
-        roomListRcv.adapter = roomListAdapter
-
-        roomListAdapter.onRoomClick = {
-            val intent = Intent(this, RoomInfoActivity::class.java)
-            intent.putExtra("room", it)
-            startActivity(intent)
-        }
+    fun initData() {
+        RetrofitInstance.apiService.getAllRooms().enqueue(this)
     }
 
     private fun showLogoutAlertDialog() {
@@ -82,6 +83,21 @@ class RoomListActivity : AppCompatActivity() {
             session.logoutUser()
         }
 
+    }
+
+    override fun onResponse(call: Call<RoomData>, response: Response<RoomData>) {
+        if (response == null || response.body() == null) {
+            return
+        }
+        var result = response.body()!!
+        for (room in result.uniqueRoom) {
+            roomList.add(Room(room))
+        }
+        roomListRcv.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onFailure(call: Call<RoomData>, t: Throwable) {
+        Toast.makeText(applicationContext,"Error",Toast.LENGTH_SHORT).show();
     }
 
 }

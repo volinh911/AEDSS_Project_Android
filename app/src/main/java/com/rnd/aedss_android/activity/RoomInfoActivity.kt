@@ -25,9 +25,9 @@ class RoomInfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_room_info)
 
         roomName = findViewById(R.id.room_name)
-        val rcvRoom = intent.getParcelableExtra<Room>("room")
+        val rcvRoom = intent.getStringExtra("room_name")
         if (rcvRoom != null) {
-            roomName.text = rcvRoom.name
+            roomName.text = rcvRoom
         }
 
         tabLayout = findViewById(R.id.tab_layout)

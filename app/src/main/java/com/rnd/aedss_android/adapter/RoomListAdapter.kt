@@ -1,19 +1,27 @@
 package com.rnd.aedss_android.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.R
+import com.rnd.aedss_android.activity.RoomInfoActivity
+import com.rnd.aedss_android.databinding.RoomItemBinding
 
-class RoomListAdapter(private val roomList:ArrayList<Room>) : RecyclerView.Adapter<RoomListAdapter.RoomListViewHolder>() {
+class RoomListAdapter(private val context: Context, roomList:List<Room>) : RecyclerView.Adapter<RoomListAdapter.RoomListViewHolder>() {
 
-    var onRoomClick: ((Room) -> Unit)? = null
+    val list: List<Room> = roomList
 
-    class RoomListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+
+    inner class RoomListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val roomName: TextView = itemView.findViewById(R.id.room_name)
         val roomItem: LinearLayout = itemView.findViewById(R.id.room_item)
     }
@@ -24,17 +32,17 @@ class RoomListAdapter(private val roomList:ArrayList<Room>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: RoomListViewHolder, position: Int) {
-        val room = roomList[position]
+        val room = list[position]
         holder.roomName.text = room.name
         holder.roomItem.setOnClickListener{
-            onRoomClick?.invoke(room)
+            val intent = Intent(context, RoomInfoActivity::class.java)
+            intent.putExtra("room_name", room.name)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount(): Int {
-        if (roomList != null && roomList.size != 0)
-            return roomList.size
-        else return 0
+        return list.size
     }
 }

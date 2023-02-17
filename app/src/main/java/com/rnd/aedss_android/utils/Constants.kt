@@ -1,5 +1,8 @@
 package com.rnd.aedss_android.utils
 
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 public class Constants {
     companion object {
         val DAY_LIST = listOf<String>("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -43,6 +46,7 @@ public class Constants {
         const val PREF_NAME = "Authentication Preferences"
 
         //for API
+
         const val BASE_URL: String = "https://perfect-cow-14.telebit.io/"
 
         const val GET_ALL_ROOMS: String = "api/v1/room"
@@ -57,5 +61,6 @@ public class Constants {
         const val GET_DEVICE_CONFIG: String = "api/v1/config/" //{deviceName}
         const val POST_DEVICE_CONFIG: String = "api/v1/config/"
         // PUT_DEVICE_CONFIG: String = "api/v1/config/{deviceName}"
+
     }
 }
