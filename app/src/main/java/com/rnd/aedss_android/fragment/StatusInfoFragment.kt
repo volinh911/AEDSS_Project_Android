@@ -13,7 +13,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import com.rnd.aedss_android.DBDefine
+import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.GalleryActivity
 
@@ -119,7 +119,7 @@ class StatusInfoFragment : Fragment() {
 
         var hourSpinner = dialogView.findViewById<Spinner>(R.id.hour_spinner)
         val spinnerAdapter =
-            context?.let { ArrayAdapter<String>(it, R.layout.hour_spinner_item, DBDefine.createHourList()) }
+            context?.let { ArrayAdapter<String>(it, R.layout.hour_spinner_item, Constants.createHourList()) }
         hourSpinner.adapter = spinnerAdapter
 
         var frequencyDialogTitle = dialogView.findViewById<TextView>(R.id.frequency_dialog_title)

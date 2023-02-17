@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.rnd.aedss_android.DBDefine
-import com.rnd.aedss_android.model.TimeDetail
+import com.rnd.aedss_android.utils.Constants
+import com.rnd.aedss_android.viewmodel.TimeDetail
 import com.rnd.aedss_android.R
 
 class TimeDetailAdapter(private val timeList:ArrayList<TimeDetail>) : RecyclerView.Adapter<TimeDetailAdapter.TimeDetailViewHoler>() {
@@ -32,9 +32,9 @@ class TimeDetailAdapter(private val timeList:ArrayList<TimeDetail>) : RecyclerVi
         val time = timeList[position]
         holder.dayText.text = time.day
 
-        if (time.devide == DBDefine.acDevice) {
+        if (time.devide == Constants.acDevice) {
             holder.deviceIcon.setImageResource(R.drawable.ac_icon)
-        } else if (time.devide == DBDefine.lightDevice) {
+        } else if (time.devide == Constants.lightDevice) {
             holder.deviceIcon.setImageResource(R.drawable.light_icon)
         }
 

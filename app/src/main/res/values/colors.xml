@@ -13,4 +13,6 @@
     <color name="off_color">#E85A5A</color>
     <color name="day_color">#FDFF96</color>
     <color name="line_color">#6068B9</color>
+
+    <color name="tv_color">#6C6A6A</color>
 </resources>

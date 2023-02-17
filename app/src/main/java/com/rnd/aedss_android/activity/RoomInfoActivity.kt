@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.rnd.aedss_android.model.Room
+import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.adapter.RoomInfoViewPagerAdapter
 import com.rnd.aedss_android.R
 

@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.rnd.aedss_android.R
-import com.rnd.aedss_android.model.Image
-import com.rnd.aedss_android.model.Room
+import com.rnd.aedss_android.viewmodel.Image
 
 class ImageViewActivity : AppCompatActivity() {
     private lateinit var image: ImageView

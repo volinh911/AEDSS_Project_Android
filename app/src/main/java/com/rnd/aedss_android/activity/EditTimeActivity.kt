@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
-import com.rnd.aedss_android.DBDefine
+import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.R
 
 class EditTimeActivity : AppCompatActivity() {
@@ -29,31 +29,31 @@ class EditTimeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_time)
 
         daySpinner = findViewById(R.id.day_spinner)
-        val daySpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.dayList)
+        val daySpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.DAY_LIST)
         daySpinner.adapter = daySpinnerAdapter
 
         hourFromSpinner = findViewById(R.id.hour_spinner_from)
-        val hourFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.createHourList())
+        val hourFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createHourList())
         hourFromSpinner.adapter = hourFromSpinnerAdapter
 
         minFromSpinner = findViewById(R.id.min_spinner_from)
-        val minFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.createMinList())
+        val minFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createMinList())
         minFromSpinner.adapter = minFromSpinnerAdapter
 
         periodFromSpinner = findViewById(R.id.period_spinner_from)
-        val periodFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.periodList)
+        val periodFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.PERIOD_LIST)
         periodFromSpinner.adapter = periodFromSpinnerAdapter
 
         hourToSpinner = findViewById(R.id.hour_spinner_to)
-        val hourToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.createHourList())
+        val hourToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createHourList())
         hourToSpinner.adapter = hourToSpinnerAdapter
 
         minToSpinner = findViewById(R.id.min_spinner_to)
-        val minToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.createMinList())
+        val minToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createMinList())
         minToSpinner.adapter = minToSpinnerAdapter
 
         periodToSpinner = findViewById(R.id.period_spinner_to)
-        val periodToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, DBDefine.periodList)
+        val periodToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.PERIOD_LIST)
         periodToSpinner.adapter = periodToSpinnerAdapter
 
         titleText = findViewById(R.id.title_name)

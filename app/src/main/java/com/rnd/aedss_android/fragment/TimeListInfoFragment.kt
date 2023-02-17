@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rnd.aedss_android.DBDefine
-import com.rnd.aedss_android.model.TimeDetail
+import com.rnd.aedss_android.utils.Constants
+import com.rnd.aedss_android.viewmodel.TimeDetail
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.EditTimeActivity
 import com.rnd.aedss_android.adapter.TimeDetailAdapter
@@ -31,8 +31,8 @@ class TimeListInfoFragment : Fragment() {
         timeListRcv.setHasFixedSize(true)
         timeListRcv.layoutManager = LinearLayoutManager(context)
         timeList = ArrayList()
-        timeList.add(TimeDetail("Monday", DBDefine.acDevice, true, "10:00", "11:00"))
-        timeList.add(TimeDetail("Thursday", DBDefine.lightDevice, false, "16:00", "17:00"))
+        timeList.add(TimeDetail("Monday", Constants.acDevice, true, "10:00", "11:00"))
+        timeList.add(TimeDetail("Thursday", Constants.lightDevice, false, "16:00", "17:00"))
         timeDetailAdapter = TimeDetailAdapter(timeList)
         timeListRcv.adapter = timeDetailAdapter
 

@@ -1,14 +1,14 @@
-package com.rnd.aedss_android.model
+package com.rnd.aedss_android.viewmodel
 
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Room(val name: String): Parcelable {
+data class Image(val urlImage: String):Parcelable {
     constructor(parcel: Parcel) : this(parcel.readString()!!) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
+        parcel.writeString(urlImage)
     }
 
     override fun describeContents(): Int {

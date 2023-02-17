@@ -41,7 +41,7 @@
         android:text="username"
         android:fontFamily="@font/inconsolata"
         android:layout_marginLeft="40dp"
-        android:textColor="@color/white"
+        android:textColor="@color/tv_color"
         android:textSize="20sp"
         />
 
@@ -54,6 +54,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
         />
 
     <TextView
@@ -65,7 +66,7 @@
         android:text="password"
         android:fontFamily="@font/inconsolata"
         android:layout_marginLeft="40dp"
-        android:textColor="@color/white"
+        android:textColor="@color/tv_color"
         android:textSize="20sp"
         />
 
@@ -78,6 +79,8 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:inputType="textPassword"
         />
 
     <androidx.cardview.widget.CardView
