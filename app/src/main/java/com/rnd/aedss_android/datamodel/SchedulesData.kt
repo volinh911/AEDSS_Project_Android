@@ -1,7 +1,7 @@
 package com.rnd.aedss_android.datamodel
 
 data class SchedulesData(
-    var _id           : String? = null,
+    var _id          : String? = null,
     var deviceName   : String? = null,
     var deviceModule : String? = null,
     var room         : String? = null,

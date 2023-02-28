@@ -1,4 +1,4 @@
-package com.rnd.aedss_android.utils
+package com.rnd.aedss_android.utils.preferences
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 import com.rnd.aedss_android.activity.LoginActivity
 import com.rnd.aedss_android.utils.Constants.Companion.IS_LOGGED_IN
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD
-import com.rnd.aedss_android.utils.Constants.Companion.PREF_NAME
+import com.rnd.aedss_android.utils.Constants.Companion.AUTH_PREF
 import com.rnd.aedss_android.utils.Constants.Companion.USERNAME
 
 class AuthenticationPreferences {
@@ -17,7 +17,7 @@ class AuthenticationPreferences {
 
     constructor(context: Context) {
         this.context = context
-        pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        pref = context.getSharedPreferences(AUTH_PREF, PRIVATE_MODE)
         editor = pref.edit()
     }
 
@@ -41,6 +41,7 @@ class AuthenticationPreferences {
         var user: Map<String, String> = HashMap<String, String>()
         (user as HashMap).put(USERNAME, pref.getString(USERNAME, null)!!)
         (user as HashMap).put(PASSWORD, pref.getString(PASSWORD, null)!!)
+
         return user
     }
 

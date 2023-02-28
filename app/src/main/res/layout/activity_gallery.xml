@@ -9,65 +9,40 @@
         android:background="@color/background_color"
         tools:context=".activity.GalleryActivity">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/navbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            >
 
             <ImageView
-                android:id="@+id/back_btn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/back_icon"
-                app:tint="@color/white" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/camera_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_toLeftOf="@id/gallery_name"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/gallery_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="70dp"
-                android:orientation="horizontal">
+                android:text="Gallery"
+                android:fontFamily="@font/inconsolata"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textAlignment="center"
+                />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/camera_icon" />
-
-                <TextView
-                    android:id="@+id/gallery_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inconsolata"
-                    android:text="Gallery"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-            <ImageView
-                android:id="@+id/add_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:src="@drawable/add_icon"
-                android:visibility="gone"
-                app:tint="@color/white" />
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:id="@+id/line_navbar"

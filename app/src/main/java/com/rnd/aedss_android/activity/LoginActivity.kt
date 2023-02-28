@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.cardview.widget.CardView
 import com.rnd.aedss_android.R
-import com.rnd.aedss_android.utils.AuthenticationPreferences
+import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD_KEY
 import com.rnd.aedss_android.utils.Constants.Companion.USERNAME_KEY
-import java.math.BigInteger
-import java.security.MessageDigest
+import com.rnd.aedss_android.utils.Constants.Companion.convertToMd5
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginBtn: Button
@@ -38,15 +37,10 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-
-
         loginBtn.setOnClickListener {
 
             var password = passwordInput.text.toString().trim()
             var username = userNameInput.text.toString().trim()
-
-            var hashPass = convertToMd5(password)
-            var hashUser = convertToMd5(username)
 
             if (username.isEmpty() && password.isEmpty()) {
                 showLoginAlertDialog()
@@ -62,11 +56,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    fun convertToMd5(input:String): String {
-        val md = MessageDigest.getInstance("MD5")
-        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
     }
 
     private fun showLoginAlertDialog() {

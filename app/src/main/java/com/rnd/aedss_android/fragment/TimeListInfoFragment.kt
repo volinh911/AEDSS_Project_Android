@@ -1,24 +1,30 @@
 package com.rnd.aedss_android.fragment
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.viewmodel.TimeDetail
 import com.rnd.aedss_android.R
-import com.rnd.aedss_android.activity.EditTimeActivity
 import com.rnd.aedss_android.adapter.TimeDetailAdapter
+import com.rnd.aedss_android.datamodel.SchedulesData
+import com.rnd.aedss_android.utils.api.RetrofitInstance
+import com.rnd.aedss_android.utils.preferences.RoomPreferences
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TimeListInfoFragment : Fragment() {
 
     private lateinit var timeListRcv: RecyclerView
-    private lateinit var timeList: ArrayList<TimeDetail>
-    private lateinit var timeDetailAdapter: TimeDetailAdapter
+    var timeList: MutableList<TimeDetail> = mutableListOf()
+
+    lateinit var roomSession: RoomPreferences
+    lateinit var rcvRoom: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,21 +33,67 @@ class TimeListInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_time_list_info, container, false)
 
+        roomSession = context?.let { RoomPreferences(it) }!!
+        rcvRoom = roomSession.getRoomName()!!
+
+        initScheduleData()
+
         timeListRcv = view.findViewById(R.id.time_list)
         timeListRcv.setHasFixedSize(true)
         timeListRcv.layoutManager = LinearLayoutManager(context)
-        timeList = ArrayList()
-        timeList.add(TimeDetail("Monday", Constants.acDevice, true, "10:00", "11:00"))
-        timeList.add(TimeDetail("Thursday", Constants.lightDevice, false, "16:00", "17:00"))
-        timeDetailAdapter = TimeDetailAdapter(timeList)
-        timeListRcv.adapter = timeDetailAdapter
+        timeListRcv.adapter = TimeDetailAdapter(requireContext(), timeList)
 
-        timeDetailAdapter.onSettingClick = {
-            val intent = Intent(context, EditTimeActivity::class.java)
-            intent.putExtra("title", "Edit Time")
-            startActivity(intent)
-        }
         return view
     }
+
+    fun initScheduleData() {
+        RetrofitInstance.apiServiceInterface.getAllSchedules(rcvRoom)
+            .enqueue(object : Callback<List<SchedulesData>> {
+                override fun onResponse(
+                    call: Call<List<SchedulesData>>,
+                    response: Response<List<SchedulesData>>
+                ) {
+                    if (response?.body() == null) {
+                        Log.d("Error List Schedule: ", "Error")
+                        return
+                    }
+
+                    var result = response.body()!!
+                    for (item in result) {
+                        var day = ""
+                        var device = ""
+                        var from = ""
+                        var to = ""
+
+                        if (item.dayOfTheWeek != null) {
+                            day = item.dayOfTheWeek!!
+                        }
+                        if (item.deviceModule != null) {
+                            device = item.deviceModule!!
+                        }
+                        if (item.timeOn != null) {
+                            from = item.timeOn!!
+                        }
+                        if (item.timeOff != null) {
+                            to = item.timeOff!!
+                        }
+
+                        if (item.repeat.equals("no")) {
+                            timeList.add(TimeDetail(day, device, false, from, to))
+                        } else {
+                            timeList.add(TimeDetail(day, device, true, from, to))
+                        }
+                    }
+
+                    timeListRcv.adapter?.notifyDataSetChanged()
+                    Log.d("schedule", result.toString())
+                }
+
+                override fun onFailure(call: Call<List<SchedulesData>>, t: Throwable) {
+                    Log.d("Error List Schedule: ", "Error")
+                }
+            })
+    }
+
 
 }

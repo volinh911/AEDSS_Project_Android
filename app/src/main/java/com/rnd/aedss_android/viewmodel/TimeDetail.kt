@@ -1,3 +1,9 @@
 package com.rnd.aedss_android.viewmodel
 
-data class TimeDetail(val day: String, val devide: Int, val repeat: Boolean, val from: String, val to: String) {}
+data class TimeDetail(
+    val day: String,
+    val device: String,
+    val repeat: Boolean,
+    val from: String,
+    val to: String
+) {}

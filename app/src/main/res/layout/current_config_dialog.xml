@@ -34,13 +34,13 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:text="'s power"
+            android:text="current frequency check"
             />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/status_text_section"
+        android:id="@+id/current_config_text_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -48,18 +48,18 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/status_dialog_text"
+            android:id="@+id/current_config_dialog_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_section"
             android:fontFamily="@font/inconsolata"
             android:textColor="@color/background_color"
             android:textSize="15sp"
-            android:text="This device is "
+            android:text="This device is checked every "
             />
 
         <TextView
-            android:id="@+id/status_text"
+            android:id="@+id/current_config_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inconsolata"
@@ -69,6 +69,16 @@
             android:text="ON"
             />
 
+        <TextView
+            android:id="@+id/current_config_dialog_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/background_color"
+            android:textSize="15sp"
+            android:text=" hour(s)"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/status_text_section"
+        android:layout_below="@id/current_config_text_section"
         android:gravity="center">
 
         <TextView
@@ -87,19 +97,7 @@
             android:fontFamily="@font/inconsolata"
             android:textColor="@color/background_color"
             android:textSize="15sp"
-            android:text="Do you want to turn"
-            />
-
-        <TextView
-            android:id="@+id/question_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inconsolata"
-            android:textColor="@color/button_color"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="OFF"
-            android:layout_marginLeft="5dp"
+            android:text="Do you want to reset?"
             />
 
     </LinearLayout>

@@ -20,7 +20,6 @@ class RoomListAdapter(private val context: Context, roomList:List<Room>) : Recyc
 
     val list: List<Room> = roomList
 
-
     inner class RoomListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val roomName: TextView = itemView.findViewById(R.id.room_name)
         val roomItem: LinearLayout = itemView.findViewById(R.id.room_item)
@@ -33,7 +32,7 @@ class RoomListAdapter(private val context: Context, roomList:List<Room>) : Recyc
 
     override fun onBindViewHolder(holder: RoomListViewHolder, position: Int) {
         val room = list[position]
-        holder.roomName.text = room.name
+        holder.roomName.text = "Room ${room.name}"
         holder.roomItem.setOnClickListener{
             val intent = Intent(context, RoomInfoActivity::class.java)
             intent.putExtra("room_name", room.name)

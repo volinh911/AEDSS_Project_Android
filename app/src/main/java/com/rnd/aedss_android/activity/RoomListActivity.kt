@@ -1,28 +1,25 @@
 package com.rnd.aedss_android.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.adapter.RoomListAdapter
 import com.rnd.aedss_android.datamodel.RoomData
-import com.rnd.aedss_android.utils.AuthenticationPreferences
-import com.rnd.aedss_android.utils.RetrofitInstance
+import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
+import com.rnd.aedss_android.utils.api.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RoomListActivity : AppCompatActivity(), Callback<RoomData> {
+class RoomListActivity : AppCompatActivity() {
 
     private lateinit var roomListRcv: RecyclerView
     var roomList: MutableList<Room> = mutableListOf()
@@ -48,10 +45,6 @@ class RoomListActivity : AppCompatActivity(), Callback<RoomData> {
         roomListRcv.layoutManager = LinearLayoutManager(this)
         roomListRcv.adapter = RoomListAdapter(applicationContext, roomList)
         initData()
-    }
-
-    fun initData() {
-        RetrofitInstance.apiService.getAllRooms().enqueue(this)
     }
 
     private fun showLogoutAlertDialog() {
@@ -85,19 +78,23 @@ class RoomListActivity : AppCompatActivity(), Callback<RoomData> {
 
     }
 
-    override fun onResponse(call: Call<RoomData>, response: Response<RoomData>) {
-        if (response == null || response.body() == null) {
-            return
-        }
-        var result = response.body()!!
-        for (room in result.uniqueRoom) {
-            roomList.add(Room(room))
-        }
-        roomListRcv.adapter?.notifyDataSetChanged()
-    }
+    fun initData() {
+        RetrofitInstance.apiServiceInterface.getAllRooms().enqueue(object : Callback<RoomData> {
+            override fun onResponse(call: Call<RoomData>, response: Response<RoomData>) {
+                if (response?.body() == null) {
+                    return
+                }
+                var result = response.body()!!
+                for (room in result.uniqueRoom) {
+                    roomList.add(Room(room))
+                }
+                roomListRcv.adapter?.notifyDataSetChanged()
+            }
 
-    override fun onFailure(call: Call<RoomData>, t: Throwable) {
-        Toast.makeText(applicationContext,"Error",Toast.LENGTH_SHORT).show();
+            override fun onFailure(call: Call<RoomData>, t: Throwable) {
+                Log.d("Error Room List: ", "Error")
+            }
+        })
     }
 
 }

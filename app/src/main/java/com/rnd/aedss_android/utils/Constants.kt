@@ -1,7 +1,7 @@
 package com.rnd.aedss_android.utils
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import java.math.BigInteger
+import java.security.MessageDigest
 
 public class Constants {
     companion object {
@@ -10,7 +10,7 @@ public class Constants {
 
         fun createHourList() : List<String> {
             var hourList = mutableListOf<String>()
-            for (i in 1 until 13) {
+            for (i in 0 until 13) {
                 if (i < 10) {
                     hourList.add("0$i")
                 } else {
@@ -32,21 +32,33 @@ public class Constants {
             return minList
         }
 
+        fun convertToMd5(input:String): String {
+            val md = MessageDigest.getInstance("MD5")
+            return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+        }
+
+        // for MQTT
+        const val broker_url = "broker.emqx.io"
+        const val broker_port = 1883
+
         //for device
-        const val acDevice = 0
-        const val lightDevice = 1
+        const val acDevice = "AC"
+        const val lightDevice = "Light"
         const val doorDevice = 2
 
-        // for login
+        // for shared preferences
+        const val AUTH_PREF = "Authentication Preferences"
         const val USERNAME_KEY = "9bf2005ca5d03ffb7ced9ebc6d2e9012"
         const val USERNAME = "username"
         const val PASSWORD_KEY = "3180da057ad60735be7f46d493b0ba0a"
         const val PASSWORD = "password"
         const val IS_LOGGED_IN = "isLoggedin"
-        const val PREF_NAME = "Authentication Preferences"
+
+        const val ROOM_PREF = "Room Preferences"
+        const val ROOM_NAME = "room name"
+        const val HAVE_YOLO = "have yolo"
 
         //for API
-
         const val BASE_URL: String = "https://perfect-cow-14.telebit.io/"
 
         const val GET_ALL_ROOMS: String = "api/v1/room"
@@ -55,12 +67,19 @@ public class Constants {
 
         const val GET_ALL_SCHEDULES: String = "api/v1/room/schedules/" //{roomName}
         const val POST_SCHEDULE: String = "api/v1/schedules"
-        // PUT_SCHEDULE: String = "api/v1/schedules/{scheduleID}"
-       // DELETE_SCHEDULE: String = "api/v1/schedules/{scheduleID}"
 
-        const val GET_DEVICE_CONFIG: String = "api/v1/config/" //{deviceName}
-        const val POST_DEVICE_CONFIG: String = "api/v1/config/"
-        // PUT_DEVICE_CONFIG: String = "api/v1/config/{deviceName}"
+        const val GET_CONFIG: String = "api/v1/config/" //{deviceName}
+        const val POST_CONFIG: String = "api/v1/config/"
+
+        const val GET_SCHEDULER_DETAIL: String = "api/v1/scheduler"
+
+        const val GET_YOLO_DETAIL: String = "api/v1/yolov5/" //{roomName}
+
+        // for MQTT
+        const val BROKER = "tcp://broker.emqx.io:1883"
+        const val CLIENT_ID = "Android_MQTT_AEDSS"
+//        const val USERNAME_MQTT = "pi4"
+//        const val PASSWORD_MQTT = "f8a41bcba1561a84f10af0d5851ce93b"
 
     }
 }

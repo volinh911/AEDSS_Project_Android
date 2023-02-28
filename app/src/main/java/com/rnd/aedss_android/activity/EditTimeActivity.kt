@@ -59,7 +59,7 @@ class EditTimeActivity : AppCompatActivity() {
         titleText = findViewById(R.id.title_name)
         var intent = intent
         if (intent != null) {
-            title = intent.getStringExtra("title").toString()
+            title = intent.getStringExtra("Edit").toString()
             titleText.setText(title)
         }
     }

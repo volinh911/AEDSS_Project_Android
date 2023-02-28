@@ -6,11 +6,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/background_color"
-    android:padding="10dp"
+    android:layout_marginTop="5dp"
+    android:id="@+id/time_item"
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:weightSum="5"
+        android:weightSum="4"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -19,7 +20,6 @@
             android:orientation="vertical"
             android:layout_height="match_parent"
             >
-
             <TextView
                 android:id="@+id/day"
                 android:layout_width="match_parent"
@@ -63,14 +63,12 @@
             android:layout_width="3dp"
             android:layout_height="60dp"
             android:background="@color/line_color"
-            android:layout_marginLeft="20dp"
             />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_marginLeft="20dp"
             android:orientation="vertical"
             android:layout_gravity="center">
 
@@ -81,7 +79,8 @@
                 android:text="10.00 AM"
                 android:fontFamily="@font/inconsolata"
                 android:textColor="@color/white"
-                android:textAlignment="center"
+                android:textAlignment="textEnd"
+                android:paddingRight="50dp"
                 android:textSize="20sp"/>
 
             <TextView
@@ -91,20 +90,11 @@
                 android:text="10.00 PM"
                 android:fontFamily="@font/inconsolata"
                 android:textColor="@color/white"
-                android:textAlignment="center"
+                android:textAlignment="textEnd"
+                android:paddingRight="50dp"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/setting_icon"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:src="@drawable/setting_icon"
-            app:tint="@color/white"
-            android:background="?android:attr/selectableItemBackground"
-            android:layout_gravity="center"/>
 
     </LinearLayout>
 
@@ -112,7 +102,7 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#706D6D"
+        android:background="#535353"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
