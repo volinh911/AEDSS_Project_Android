@@ -9,8 +9,8 @@ import android.widget.EditText
 import androidx.cardview.widget.CardView
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
-import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD_KEY
-import com.rnd.aedss_android.utils.Constants.Companion.USERNAME_KEY
+import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD_LOGIN
+import com.rnd.aedss_android.utils.Constants.Companion.USERNAME_LOGIN
 import com.rnd.aedss_android.utils.Constants.Companion.convertToMd5
 
 class LoginActivity : AppCompatActivity() {
@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
             if (username.isEmpty() && password.isEmpty()) {
                 showLoginAlertDialog()
             } else {
-                if (convertToMd5(username) == USERNAME_KEY && convertToMd5(password) == PASSWORD_KEY) {
+                if (convertToMd5(username) == USERNAME_LOGIN && convertToMd5(password) == PASSWORD_LOGIN) {
                     session.createLoginSession(username, password)
                     var intent: Intent = Intent(applicationContext, RoomListActivity::class.java)
                     startActivity(intent)
@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginAlertDialog() {
-        val dialogView = View.inflate(this, R.layout.login_alert_dialog, null)
+        val dialogView = View.inflate(this, R.layout.alert_dialog, null)
         val builder = android.app.AlertDialog.Builder(this)
         builder.setView(dialogView)
 
@@ -76,6 +76,5 @@ class LoginActivity : AppCompatActivity() {
         okSection.setOnClickListener{
             alertDialog.dismiss()
         }
-
     }
 }

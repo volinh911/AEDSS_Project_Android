@@ -37,10 +37,6 @@ public class Constants {
             return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
         }
 
-        // for MQTT
-        const val broker_url = "broker.emqx.io"
-        const val broker_port = 1883
-
         //for device
         const val acDevice = "AC"
         const val lightDevice = "Light"
@@ -48,9 +44,9 @@ public class Constants {
 
         // for shared preferences
         const val AUTH_PREF = "Authentication Preferences"
-        const val USERNAME_KEY = "9bf2005ca5d03ffb7ced9ebc6d2e9012"
+        const val USERNAME_LOGIN = "9bf2005ca5d03ffb7ced9ebc6d2e9012"
         const val USERNAME = "username"
-        const val PASSWORD_KEY = "3180da057ad60735be7f46d493b0ba0a"
+        const val PASSWORD_LOGIN = "3180da057ad60735be7f46d493b0ba0a"
         const val PASSWORD = "password"
         const val IS_LOGGED_IN = "isLoggedin"
 
@@ -78,8 +74,17 @@ public class Constants {
         // for MQTT
         const val BROKER = "tcp://broker.emqx.io:1883"
         const val CLIENT_ID = "Android_MQTT_AEDSS"
+        const val USERNAME_MQTT = ""
+        const val PASSWORD_MQTT = ""
 //        const val USERNAME_MQTT = "pi4"
 //        const val PASSWORD_MQTT = "f8a41bcba1561a84f10af0d5851ce93b"
 
+        const val REQUEST_DOOR = "requestDoorStatus"
+        const val REQUEST_AC_ON = "requestACOn"
+        const val REQUEST_AC_OFF = "requestACOff"
+        const val REQUEST_LIGHT_ON = "requestLightOn"
+        const val REQUEST_LIGHT_OFF = "requestLightOff"
+        const val REQUEST_LIGHT_STATE = "requestLightState"
+        const val REQUEST_AC_STATE = "requestTemp"
     }
 }

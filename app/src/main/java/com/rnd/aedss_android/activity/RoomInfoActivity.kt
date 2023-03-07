@@ -46,6 +46,9 @@ class RoomInfoActivity : AppCompatActivity() {
             session.addRoomSession(rcvRoom)
         }
 
+        configBtn = findViewById(R.id.config_btn)
+        configBtn.setOnClickListener { showFrequencyDialog() }
+
         initYoloData()
 
         tabLayout = findViewById(R.id.tab_layout)
@@ -71,9 +74,6 @@ class RoomInfoActivity : AppCompatActivity() {
             intent.putExtra("title", "Add Time")
             startActivity(intent)
         }
-
-        configBtn = findViewById(R.id.config_btn)
-        configBtn.setOnClickListener { showFrequencyDialog() }
     }
 
     private fun showFrequencyDialog() {
@@ -137,7 +137,6 @@ class RoomInfoActivity : AppCompatActivity() {
                         Log.d("Error yolo: ", "Error")
                     }
                     session.addYoloSession()
-                    var result = response.body()
                     configBtn.visibility = View.VISIBLE
                     configBtn.setOnClickListener { initConfigData() }
                 }
