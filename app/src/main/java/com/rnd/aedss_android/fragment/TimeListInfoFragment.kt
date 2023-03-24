@@ -13,6 +13,7 @@ import com.rnd.aedss_android.R
 import com.rnd.aedss_android.adapter.TimeDetailAdapter
 import com.rnd.aedss_android.datamodel.SchedulesData
 import com.rnd.aedss_android.utils.api.RetrofitInstance
+import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
 import com.rnd.aedss_android.utils.preferences.RoomPreferences
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +27,10 @@ class TimeListInfoFragment : Fragment() {
     lateinit var roomSession: RoomPreferences
     lateinit var rcvRoom: String
 
+    lateinit var authSession: AuthenticationPreferences
+    var auth: String = ""
+    var userid: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +40,10 @@ class TimeListInfoFragment : Fragment() {
 
         roomSession = context?.let { RoomPreferences(it) }!!
         rcvRoom = roomSession.getRoomName()!!
+
+        authSession = context?.let { AuthenticationPreferences(it) }!!
+        auth = authSession.getAuthToken().toString()
+        userid = authSession.getUserid().toString()
 
         initScheduleData()
 
@@ -47,7 +56,7 @@ class TimeListInfoFragment : Fragment() {
     }
 
     fun initScheduleData() {
-        RetrofitInstance.apiServiceInterface.getAllSchedules(rcvRoom)
+        RetrofitInstance.apiServiceInterface.getAllSchedules(auth, userid, rcvRoom)
             .enqueue(object : Callback<List<SchedulesData>> {
                 override fun onResponse(
                     call: Call<List<SchedulesData>>,

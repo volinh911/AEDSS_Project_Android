@@ -32,25 +32,25 @@ class LoginWithGoogleActivity : AppCompatActivity() {
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this,gso)
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         loginBtn = findViewById(R.id.login_btn)
-        loginBtn.setOnClickListener{
+        loginBtn.setOnClickListener {
             loginGoogle()
         }
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        result ->
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 handleResult(task)
             }
-    }
+        }
 
     private fun handleResult(task: Task<GoogleSignInAccount>) {
         if (task.isSuccessful) {
-            val account : GoogleSignInAccount? = task.result
+            val account: GoogleSignInAccount? = task.result
             if (account != null) {
                 moveNextScreen(account)
             }
@@ -61,9 +61,9 @@ class LoginWithGoogleActivity : AppCompatActivity() {
 
     private fun moveNextScreen(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        auth.signInWithCredential(credential).addOnCompleteListener{
+        auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                val intent : Intent = Intent(this, RoomListActivity::class.java)
+                val intent: Intent = Intent(this, RoomListActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_LONG).show()

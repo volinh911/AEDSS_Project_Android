@@ -5,9 +5,11 @@ import android.util.Log
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
-class MQTTClient(context: Context?,
-                 serverURI: String,
-                 clientID: String = "") {
+class MQTTClient(
+    context: Context?,
+    serverURI: String,
+    clientID: String = ""
+) {
     private var mqttClient = MqttAndroidClient(context, serverURI, clientID)
     private val defaultCbConnect = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
@@ -68,10 +70,12 @@ class MQTTClient(context: Context?,
         }
     }
 
-    fun connect(username:   String               = "",
-                password:   String               = "",
-                cbConnect: IMqttActionListener = defaultCbConnect,
-                cbClient: MqttCallback = defaultCbClient) {
+    fun connect(
+        username: String = "",
+        password: String = "",
+        cbConnect: IMqttActionListener = defaultCbConnect,
+        cbClient: MqttCallback = defaultCbClient
+    ) {
         mqttClient.setCallback(cbClient)
         val options = MqttConnectOptions()
         options.isCleanSession = true
@@ -89,9 +93,11 @@ class MQTTClient(context: Context?,
         return mqttClient.isConnected
     }
 
-    fun subscribe(topic:        String,
-                  qos:          Int                 = 1,
-                  cbSubscribe: IMqttActionListener = defaultCbSubscribe) {
+    fun subscribe(
+        topic: String,
+        qos: Int = 1,
+        cbSubscribe: IMqttActionListener = defaultCbSubscribe
+    ) {
         try {
             mqttClient.subscribe(topic, qos, null, cbSubscribe)
         } catch (e: MqttException) {
@@ -99,8 +105,10 @@ class MQTTClient(context: Context?,
         }
     }
 
-    fun unsubscribe(topic:          String,
-                    cbUnsubscribe: IMqttActionListener = defaultCbUnsubscribe) {
+    fun unsubscribe(
+        topic: String,
+        cbUnsubscribe: IMqttActionListener = defaultCbUnsubscribe
+    ) {
         try {
             mqttClient.unsubscribe(topic, null, cbUnsubscribe)
         } catch (e: MqttException) {
@@ -108,11 +116,13 @@ class MQTTClient(context: Context?,
         }
     }
 
-    fun publish(topic:      String,
-                msg:        String,
-                qos:        Int                 = 1,
-                retained:   Boolean             = false,
-                cbPublish: IMqttActionListener = defaultCbPublish) {
+    fun publish(
+        topic: String,
+        msg: String,
+        qos: Int = 1,
+        retained: Boolean = false,
+        cbPublish: IMqttActionListener = defaultCbPublish
+    ) {
         try {
             val message = MqttMessage()
             message.payload = msg.toByteArray()
@@ -124,7 +134,7 @@ class MQTTClient(context: Context?,
         }
     }
 
-    fun disconnect(cbDisconnect: IMqttActionListener = defaultCbDisconnect ) {
+    fun disconnect(cbDisconnect: IMqttActionListener = defaultCbDisconnect) {
         try {
             mqttClient.disconnect(null, cbDisconnect)
         } catch (e: MqttException) {

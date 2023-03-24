@@ -87,7 +87,7 @@
             android:fontFamily="@font/inconsolata"
             android:textColor="@color/background_color"
             android:textSize="15sp"
-            android:text="Do you want to turn"
+            android:text="Do you want to"
             />
 
         <TextView
@@ -141,7 +141,6 @@
             app:cardCornerRadius="5dp"
             app:cardBackgroundColor="@android:color/transparent"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_marginLeft="50dp"
             app:cardElevation="0dp"
             >
 

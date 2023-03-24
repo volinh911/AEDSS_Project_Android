@@ -13,18 +13,20 @@ import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.viewmodel.TimeDetail
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.EditTimeActivity
-import com.rnd.aedss_android.activity.RoomInfoActivity
+import com.rnd.aedss_android.utils.Constants.Companion.EDIT_SCHEDULE
+import com.rnd.aedss_android.utils.Constants.Companion.SCHEDULE
 
-class TimeDetailAdapter(private val context: Context, timeList:List<TimeDetail>) : RecyclerView.Adapter<TimeDetailAdapter.TimeDetailViewHoler>() {
+class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>) :
+    RecyclerView.Adapter<TimeDetailAdapter.TimeDetailViewHoler>() {
 
     val list: List<TimeDetail> = timeList
 
-    inner class TimeDetailViewHoler(itemView : View) : RecyclerView.ViewHolder(itemView ){
-        val dayText : TextView = itemView.findViewById(R.id.day)
-        val deviceIcon : ImageView = itemView.findViewById(R.id.device_icon)
-        val repeatIcon : ImageView = itemView.findViewById(R.id.repeat_icon)
-        val fromText : TextView = itemView.findViewById(R.id.from_text)
-        val toText : TextView = itemView.findViewById(R.id.to_text)
+    inner class TimeDetailViewHoler(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val dayText: TextView = itemView.findViewById(R.id.day)
+        val deviceIcon: ImageView = itemView.findViewById(R.id.device_icon)
+        val repeatIcon: ImageView = itemView.findViewById(R.id.repeat_icon)
+        val fromText: TextView = itemView.findViewById(R.id.from_text)
+        val toText: TextView = itemView.findViewById(R.id.to_text)
         val timeItem: LinearLayout = itemView.findViewById(R.id.time_item)
     }
 
@@ -35,11 +37,39 @@ class TimeDetailAdapter(private val context: Context, timeList:List<TimeDetail>)
 
     override fun onBindViewHolder(holder: TimeDetailViewHoler, position: Int) {
         val time = list[position]
-        holder.dayText.text = time.day
+        var day: String = ""
+        when (time.day) {
+            "0" -> {
+                day = "Sunday"
+            }
+            "1" -> {
+                day = "Monday"
+            }
+            "2" -> {
+                day = "Tuesday"
+            }
+            "3" -> {
+                day = "Wednesday"
+            }
+            "4" -> {
+                day = "Thursday"
+            }
+            "5" -> {
+                day = "Friday"
+            }
+            "6" -> {
+                day = "Saturday"
+            }
+            "7" -> {
+                day = "Sunday"
+            }
+        }
 
-        if (time.device == Constants.acDevice) {
+        holder.dayText.text = day
+
+        if (time.device == Constants.AC_DEVICE) {
             holder.deviceIcon.setImageResource(R.drawable.ac_icon)
-        } else if (time.device == Constants.lightDevice) {
+        } else if (time.device == Constants.LIGHT_DEVICE) {
             holder.deviceIcon.setImageResource(R.drawable.light_icon)
         }
 
@@ -50,12 +80,21 @@ class TimeDetailAdapter(private val context: Context, timeList:List<TimeDetail>)
             holder.repeatIcon.setImageResource(R.drawable.nonrepeat_ic)
         }
 
-        holder.fromText.text = "from: ${time.from}"
-        holder.toText.text = "to: ${time.to}"
+        if (time.from == "-1") {
+            holder.fromText.visibility = View.GONE
+        } else {
+            holder.fromText.text = "from: ${time.from}"
+        }
+
+        if (time.to == "-1") {
+            holder.toText.visibility = View.GONE
+        } else {
+            holder.toText.text = "to: ${time.to}"
+        }
 
         holder.timeItem.setOnClickListener {
             val intent = Intent(context, EditTimeActivity::class.java)
-            intent.putExtra("Edit", "Edit Schedule")
+            intent.putExtra(SCHEDULE, EDIT_SCHEDULE)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }

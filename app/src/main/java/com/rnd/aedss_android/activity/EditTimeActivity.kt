@@ -7,6 +7,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.R
+import com.rnd.aedss_android.utils.Constants.Companion.SCHEDULE
+import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
+import com.rnd.aedss_android.utils.preferences.RoomPreferences
 
 class EditTimeActivity : AppCompatActivity() {
 
@@ -22,45 +25,76 @@ class EditTimeActivity : AppCompatActivity() {
 
     private lateinit var titleText: TextView
 
-    private lateinit var title: String
+    var rcvValue: Int = 0
+
+    lateinit var roomSession: RoomPreferences
+    lateinit var rcvRoom: String
+
+    lateinit var authSession: AuthenticationPreferences
+    var auth: String = ""
+    var userid: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_time)
 
+        roomSession = RoomPreferences(this)
+        rcvRoom = roomSession.getRoomName().toString()
+
+        authSession = AuthenticationPreferences(this)
+        auth = authSession.getAuthToken().toString()
+        userid = authSession.getUserid().toString()
+
         daySpinner = findViewById(R.id.day_spinner)
-        val daySpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.DAY_LIST)
+        val daySpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.DAY_LIST)
         daySpinner.adapter = daySpinnerAdapter
 
         hourFromSpinner = findViewById(R.id.hour_spinner_from)
-        val hourFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createHourList())
+        val hourFromSpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createHourList())
         hourFromSpinner.adapter = hourFromSpinnerAdapter
 
         minFromSpinner = findViewById(R.id.min_spinner_from)
-        val minFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createMinList())
+        val minFromSpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createMinList())
         minFromSpinner.adapter = minFromSpinnerAdapter
 
         periodFromSpinner = findViewById(R.id.period_spinner_from)
-        val periodFromSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.PERIOD_LIST)
+        val periodFromSpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.PERIOD_LIST)
         periodFromSpinner.adapter = periodFromSpinnerAdapter
 
         hourToSpinner = findViewById(R.id.hour_spinner_to)
-        val hourToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createHourList())
+        val hourToSpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createHourList())
         hourToSpinner.adapter = hourToSpinnerAdapter
 
         minToSpinner = findViewById(R.id.min_spinner_to)
-        val minToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createMinList())
+        val minToSpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.createMinList())
         minToSpinner.adapter = minToSpinnerAdapter
 
         periodToSpinner = findViewById(R.id.period_spinner_to)
-        val periodToSpinnerAdapter = ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.PERIOD_LIST)
+        val periodToSpinnerAdapter =
+            ArrayAdapter<String>(this, R.layout.day_spinner_item, Constants.PERIOD_LIST)
         periodToSpinner.adapter = periodToSpinnerAdapter
 
         titleText = findViewById(R.id.title_name)
         var intent = intent
         if (intent != null) {
-            title = intent.getStringExtra("Edit").toString()
-            titleText.setText(title)
+            rcvValue = intent.getIntExtra(SCHEDULE, 0)
+            if (rcvValue == 0) {
+                titleText.text = "Add time"
+            } else {
+                titleText.text = "Edit time"
+            }
+
         }
+    }
+
+    // create new schedule
+    private fun postSchedule() {
+
     }
 }

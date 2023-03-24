@@ -10,7 +10,8 @@ import com.bumptech.glide.Glide
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.viewmodel.Image
 
-class ImageListAdapter(private val imageList: ArrayList<Image>) : RecyclerView.Adapter<ImageListAdapter.ImageListViewHolder>() {
+class ImageListAdapter(private val imageList: ArrayList<Image>) :
+    RecyclerView.Adapter<ImageListAdapter.ImageListViewHolder>() {
     var onImageClick: ((Image) -> Unit)? = null
 
     class ImageListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -3,7 +3,7 @@ package com.rnd.aedss_android.viewmodel
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Image(val urlImage: String):Parcelable {
+data class Image(val urlImage: String) : Parcelable {
     constructor(parcel: Parcel) : this(parcel.readString()!!) {
     }
 

@@ -4,16 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import com.rnd.aedss_android.activity.LoginActivity
+import com.rnd.aedss_android.utils.Constants.Companion.AUTHENTICATION_TOKEN
 import com.rnd.aedss_android.utils.Constants.Companion.IS_LOGGED_IN
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD
 import com.rnd.aedss_android.utils.Constants.Companion.AUTH_PREF
-import com.rnd.aedss_android.utils.Constants.Companion.USERNAME
+import com.rnd.aedss_android.utils.Constants.Companion.EMAIL
+import com.rnd.aedss_android.utils.Constants.Companion.USER_ID
+import com.rnd.aedss_android.viewmodel.User
 
 class AuthenticationPreferences {
     lateinit var pref: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
     lateinit var context: Context
-    var PRIVATE_MODE : Int = 0
+    var PRIVATE_MODE: Int = 0
 
     constructor(context: Context) {
         this.context = context
@@ -21,10 +24,12 @@ class AuthenticationPreferences {
         editor = pref.edit()
     }
 
-    fun createLoginSession(username: String, password: String) {
+    fun createLoginSession(email: String, password: String, auth: String, userid: String) {
         editor.putBoolean(IS_LOGGED_IN, true)
-        editor.putString(USERNAME, username)
+        editor.putString(EMAIL, email)
         editor.putString(PASSWORD, password)
+        editor.putString(AUTHENTICATION_TOKEN, auth)
+        editor.putString(USER_ID, userid)
         editor.commit()
     }
 
@@ -37,11 +42,8 @@ class AuthenticationPreferences {
         }
     }
 
-    fun getUserDetails(): HashMap<String, String> {
-        var user: Map<String, String> = HashMap<String, String>()
-        (user as HashMap).put(USERNAME, pref.getString(USERNAME, null)!!)
-        (user as HashMap).put(PASSWORD, pref.getString(PASSWORD, null)!!)
-
+    fun getUserDetails(): User {
+        var user = User(pref.getString(EMAIL, null)!!, pref.getString(PASSWORD, null)!!)
         return user
     }
 
@@ -56,5 +58,13 @@ class AuthenticationPreferences {
 
     fun isLoggedIn(): Boolean {
         return pref.getBoolean(IS_LOGGED_IN, false)
+    }
+
+    fun getAuthToken(): String? {
+        return pref.getString(AUTHENTICATION_TOKEN, "")
+    }
+
+    fun getUserid(): String? {
+        return pref.getString(USER_ID, "")
     }
 }

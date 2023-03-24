@@ -27,6 +27,8 @@ class RoomListActivity : AppCompatActivity() {
     private lateinit var logoutBtn: ImageView
 
     lateinit var session: AuthenticationPreferences
+    var auth: String = ""
+    var userid: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +37,11 @@ class RoomListActivity : AppCompatActivity() {
         session = AuthenticationPreferences(this)
         session.checkLogin()
 
+        auth = session.getAuthToken().toString()
+        userid = session.getUserid().toString()
+
         logoutBtn = findViewById(R.id.logout_btn)
-        logoutBtn.setOnClickListener{
+        logoutBtn.setOnClickListener {
             showLogoutAlertDialog()
         }
 
@@ -62,10 +67,10 @@ class RoomListActivity : AppCompatActivity() {
         var cancelBtn = dialogView.findViewById<Button>(R.id.cancel_btn)
         var cancelSection = dialogView.findViewById<CardView>(R.id.cancel_section)
 
-        cancelBtn.setOnClickListener{
+        cancelBtn.setOnClickListener {
             alertDialog.dismiss()
         }
-        cancelSection.setOnClickListener{
+        cancelSection.setOnClickListener {
             alertDialog.dismiss()
         }
 
@@ -79,22 +84,23 @@ class RoomListActivity : AppCompatActivity() {
     }
 
     fun initData() {
-        RetrofitInstance.apiServiceInterface.getAllRooms().enqueue(object : Callback<RoomData> {
-            override fun onResponse(call: Call<RoomData>, response: Response<RoomData>) {
-                if (response?.body() == null) {
-                    return
+        RetrofitInstance.apiServiceInterface.getAllRooms(auth, userid)
+            .enqueue(object : Callback<RoomData> {
+                override fun onResponse(call: Call<RoomData>, response: Response<RoomData>) {
+                    if (response?.body() == null) {
+                        return
+                    }
+                    var result = response.body()!!
+                    for (room in result.uniqueRoom) {
+                        roomList.add(Room(room))
+                    }
+                    roomListRcv.adapter?.notifyDataSetChanged()
                 }
-                var result = response.body()!!
-                for (room in result.uniqueRoom) {
-                    roomList.add(Room(room))
-                }
-                roomListRcv.adapter?.notifyDataSetChanged()
-            }
 
-            override fun onFailure(call: Call<RoomData>, t: Throwable) {
-                Log.d("Error Room List: ", "Error")
-            }
-        })
+                override fun onFailure(call: Call<RoomData>, t: Throwable) {
+                    Log.d("Error Room List: ", "Error")
+                }
+            })
     }
 
 }

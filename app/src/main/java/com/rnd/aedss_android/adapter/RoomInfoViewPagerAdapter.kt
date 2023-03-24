@@ -9,15 +9,21 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.rnd.aedss_android.fragment.StatusInfoFragment
 import com.rnd.aedss_android.fragment.TimeListInfoFragment
 
-class RoomInfoViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity)
-{
+class RoomInfoViewPagerAdapter(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {
-        return when(position) {
-            0 -> {StatusInfoFragment() }
-            1 -> {TimeListInfoFragment() }
-            else -> { throw Resources.NotFoundException("Position not found")}
+        return when (position) {
+            0 -> {
+                StatusInfoFragment()
+            }
+            1 -> {
+                TimeListInfoFragment()
+            }
+            else -> {
+                throw Resources.NotFoundException("Position not found")
+            }
         }
     }
 }

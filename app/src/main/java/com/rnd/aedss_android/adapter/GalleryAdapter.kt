@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.viewmodel.SectionImage
 
-class GalleryAdapter(private val sectionList: ArrayList<SectionImage>): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+class GalleryAdapter(private val sectionList: ArrayList<SectionImage>) :
+    RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
-    class GalleryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date: TextView = itemView.findViewById(R.id.date)
         val imgList: RecyclerView = itemView.findViewById(R.id.img_list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.section_gallery_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.section_gallery_item, parent, false)
         return GalleryViewHolder(view)
     }
 
