@@ -62,6 +62,7 @@ interface APIServiceInterface {
     fun updateSchedule(
         @Header("auth") auth: String,
         @Header("userid") userid: String,
+        @Path("scheduleID") scheduleID: String,
         @Body body: UpdateScheduleBody
     ): Call<ResponseData>
 

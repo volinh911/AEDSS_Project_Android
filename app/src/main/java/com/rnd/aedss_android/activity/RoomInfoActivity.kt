@@ -67,7 +67,7 @@ class RoomInfoActivity : AppCompatActivity() {
 
         configBtn = findViewById(R.id.config_btn)
 
-        var id: String = Constants.CLIENT_ID + "_" + ((0..1000).random()).toString()
+        var id: String = Constants.CLIENT_ID + "_" + (('a'..'z').random()).toString() + "_" + ((0..1000).random()).toString()
         mqttClient = MQTTClient(this, Constants.BROKER, id)
 
         initYoloData()

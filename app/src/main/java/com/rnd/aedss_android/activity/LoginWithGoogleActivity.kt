@@ -34,7 +34,7 @@ class LoginWithGoogleActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        loginBtn = findViewById(R.id.login_btn)
+        loginBtn = findViewById(R.id.submit_post_btn)
         loginBtn.setOnClickListener {
             loginGoogle()
         }

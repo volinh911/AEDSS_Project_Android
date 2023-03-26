@@ -2,6 +2,7 @@ package com.rnd.aedss_android.utils.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.rnd.aedss_android.utils.Constants.Companion.DEVICE_LIST
 import com.rnd.aedss_android.utils.Constants.Companion.HAVE_YOLO
 import com.rnd.aedss_android.utils.Constants.Companion.PUBLISH_TOPIC_YOLO
 import com.rnd.aedss_android.utils.Constants.Companion.ROOM_NAME
@@ -46,5 +47,14 @@ class RoomPreferences {
 
     fun getSubscribeYoloTopic(): String? {
         return pref.getString(SUBSCRIBE_TOPIC_YOLO, "")
+    }
+
+    fun addDeviceList(deviceList: String) {
+        editor.putString(DEVICE_LIST, deviceList)
+        editor.commit()
+    }
+
+    fun getDeviceList(): String? {
+        return pref.getString(DEVICE_LIST, "")
     }
 }

@@ -73,6 +73,7 @@ class TimeListInfoFragment : Fragment() {
                         var device = ""
                         var from = ""
                         var to = ""
+                        var scheduleId = ""
 
                         if (item.dayOfTheWeek != null) {
                             day = item.dayOfTheWeek!!
@@ -87,15 +88,18 @@ class TimeListInfoFragment : Fragment() {
                             to = item.timeOff!!
                         }
 
+                        if (item._id != null) {
+                            scheduleId = item._id!!
+                        }
+
                         if (item.repeat.equals("no")) {
-                            timeList.add(TimeDetail(day, device, false, from, to))
+                            timeList.add(TimeDetail(scheduleId, day, device, false, from, to))
                         } else {
-                            timeList.add(TimeDetail(day, device, true, from, to))
+                            timeList.add(TimeDetail(scheduleId, day, device, true, from, to))
                         }
                     }
 
                     timeListRcv.adapter?.notifyDataSetChanged()
-                    Log.d("schedule", result.toString())
                 }
 
                 override fun onFailure(call: Call<List<SchedulesData>>, t: Throwable) {

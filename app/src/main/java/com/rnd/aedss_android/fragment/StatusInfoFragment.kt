@@ -17,10 +17,12 @@ import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.GalleryActivity
 import com.rnd.aedss_android.activity.RoomListActivity
 import com.rnd.aedss_android.datamodel.device_data.*
+import com.rnd.aedss_android.utils.Constants
+import com.rnd.aedss_android.utils.Constants.Companion.AC_DEVICE
 import com.rnd.aedss_android.utils.Constants.Companion.BROKER
 import com.rnd.aedss_android.utils.Constants.Companion.CLIENT_ID
-import com.rnd.aedss_android.utils.Constants.Companion.DOOR_LOCKED
-import com.rnd.aedss_android.utils.Constants.Companion.DOOR_UNLOCKED
+import com.rnd.aedss_android.utils.Constants.Companion.DOOR_DEVICE
+import com.rnd.aedss_android.utils.Constants.Companion.LIGHT_DEVICE
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD_MQTT
 import com.rnd.aedss_android.utils.Constants.Companion.REQUEST_AC_OFF
 import com.rnd.aedss_android.utils.Constants.Companion.REQUEST_AC_ON
@@ -69,8 +71,6 @@ class StatusInfoFragment : Fragment() {
     var requestSubscribeTopic: String = "" // to request on/off ac and light
     var isSubscribeAc: Boolean = false
     var isSubscribeLight: Boolean = false
-
-    var countDevice: Int = 0
 
     //publish topic
     var acPublishTopic: String = ""
@@ -169,14 +169,14 @@ class StatusInfoFragment : Fragment() {
                 if (deviceList.contains("LightState")) {
                     lightSubscribeTopic = topic
                 }
-                if (deviceList.contains("AC")) {
+                if (deviceList.contains(AC_DEVICE)) {
                     acSubscribeTopic = topic
                 }
             }
-            if (topic.contains("Door")) {
+            if (topic.contains(DOOR_DEVICE)) {
                 doorSubscribeTopic = topic
             }
-            if (topic.contains("AC")) {
+            if (topic.contains(AC_DEVICE)) {
                 requestSubscribeTopic = topic
             }
         }
@@ -193,11 +193,11 @@ class StatusInfoFragment : Fragment() {
                 if (deviceList.contains("LightState")) {
                     lightPublishTopic = topic
                 }
-                if (deviceList.contains("AC")) {
+                if (deviceList.contains(AC_DEVICE)) {
                     acPublishTopic = topic
                 }
             }
-            if (topic.contains("Door")) {
+            if (topic.contains(DOOR_DEVICE)) {
                 doorPublishTopic = topic
             }
         }
@@ -205,21 +205,21 @@ class StatusInfoFragment : Fragment() {
     }
 
     private fun initDeviceList() {
-        if (deviceList.contains("Door")) {
+        var deviceListString: String = ""
+        if (deviceList.contains(DOOR_DEVICE)) {
             doorSection.visibility = View.VISIBLE
-            countDevice++
         }
 
-        if (deviceList.contains("AC")) {
+        if (deviceList.contains(AC_DEVICE)) {
             acSection.visibility = View.VISIBLE
             onClickDeviceSection(acSection, "AC", true)
-            countDevice++
+            deviceListString += "$AC_DEVICE,"
         }
 
         if (deviceList.contains("LightState")) {
             onClickDeviceSection(lightSection, "Light", false)
             lightSection.visibility = View.VISIBLE
-            countDevice++
+            deviceListString += LIGHT_DEVICE
         }
 
         if (haveYolo) {
@@ -230,6 +230,8 @@ class StatusInfoFragment : Fragment() {
                 startActivity(intent)
             }
         }
+
+        roomSession.addDeviceList(deviceListString)
     }
 
     private fun showPowerDialog(title: String, status: Boolean) {
@@ -252,7 +254,7 @@ class StatusInfoFragment : Fragment() {
         var powerDialogOkButton = dialogView.findViewById<Button>(R.id.ok_btn)
 
         powerDialogTitle.text = title
-        if (title == "Door") {
+        if (title == DOOR_DEVICE) {
             powerDialog.dismiss()
             showDeviceAlertDialog(false)
 
@@ -271,14 +273,14 @@ class StatusInfoFragment : Fragment() {
             powerDialogOkButton.layoutParams = layoutParams
             powerDialogOkButton.setOnClickListener {
                 when (title) {
-                    "AC" -> {
+                    AC_DEVICE -> {
                         if (status) {
                             publishTopic(requestSubscribeTopic, REQUEST_AC_OFF)
                         } else {
                             publishTopic(requestSubscribeTopic, REQUEST_AC_ON)
                         }
                     }
-                    "Light" -> {
+                    LIGHT_DEVICE -> {
                         if (status) {
                             publishTopic(requestSubscribeTopic, REQUEST_LIGHT_OFF)
                         } else {
@@ -294,7 +296,7 @@ class StatusInfoFragment : Fragment() {
 
     private fun showAlertDialog() {
         val dialogView = View.inflate(context, R.layout.alert_dialog, null)
-        val builder = android.app.AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context)
         builder.setView(dialogView)
 
         val alertDialog = builder.create()
@@ -318,7 +320,7 @@ class StatusInfoFragment : Fragment() {
     }
 
     private fun connectMQTT() {
-        var id: String = CLIENT_ID + "_" + ((0..1000).random()).toString()
+        var id: String = CLIENT_ID + "_" + (('a'..'z').random()).toString() + "_" + ((0..1000).random()).toString()
         mqttClient = MQTTClient(context, BROKER, id)
         mqttClient.connect(USERNAME_MQTT, PASSWORD_MQTT, object : IMqttActionListener {
             override fun onSuccess(asyncActionToken: IMqttToken?) {
@@ -371,11 +373,11 @@ class StatusInfoFragment : Fragment() {
                                         android.graphics.PorterDuff.Mode.SRC_IN
                                     )
                                 }
-                            onClickDeviceSection(doorSection, "Door", false)
+                            onClickDeviceSection(doorSection, DOOR_DEVICE, false)
 
                         } else {
                             doorStatus.setImageResource(R.drawable.locked_ic)
-                            onClickDeviceSection(doorSection, "Door", true)
+                            onClickDeviceSection(doorSection, DOOR_DEVICE, true)
                         }
                     }
                 }
@@ -457,19 +459,19 @@ class StatusInfoFragment : Fragment() {
                         when (request) {
                             REQUEST_LIGHT_ON -> {
                                 lightStatus.setImageResource(R.drawable.on_icon)
-                                onClickDeviceSection(lightSection, "Light", true)
+                                onClickDeviceSection(lightSection, LIGHT_DEVICE, true)
                             }
                             REQUEST_LIGHT_OFF -> {
                                 lightStatus.setImageResource(R.drawable.off_icon)
-                                onClickDeviceSection(lightSection, "Light", false)
+                                onClickDeviceSection(lightSection, LIGHT_DEVICE, false)
                             }
                             REQUEST_AC_OFF -> {
                                 acStatus.setImageResource(R.drawable.off_icon)
-                                onClickDeviceSection(acSection, "AC", false)
+                                onClickDeviceSection(acSection, AC_DEVICE, false)
                             }
                             REQUEST_AC_ON -> {
                                 acStatus.setImageResource(R.drawable.on_icon)
-                                onClickDeviceSection(acSection, "AC", true)
+                                onClickDeviceSection(acSection, AC_DEVICE, true)
                             }
                         }
                     }

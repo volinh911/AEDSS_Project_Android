@@ -6,6 +6,7 @@ import java.security.MessageDigest
 public class Constants {
     companion object {
         val DAY_LIST = listOf<String>(
+            "No Choice",
             "Monday",
             "Tuesday",
             "Wednesday",
@@ -18,7 +19,7 @@ public class Constants {
 
         fun createHourList(): List<String> {
             var hourList = mutableListOf<String>()
-            for (i in 0 until 13) {
+            for (i in 0 until 24) {
                 if (i < 10) {
                     hourList.add("0$i")
                 } else {
@@ -47,16 +48,22 @@ public class Constants {
 
         //for device
         const val AC_DEVICE = "AC"
+        const val AC_DEVICE_FULL = "Air Conditioner"
         const val LIGHT_DEVICE = "Light"
+        const val DOOR_DEVICE = "Door"
         const val TURN_OFF = "turn OFF?"
         const val TURN_ON = "turn ON?"
-        const val DOOR_LOCKED = "LOCKED?"
-        const val DOOR_UNLOCKED = "UNLOCKED?"
 
         //for schedule
         const val SCHEDULE = "schedule"
         const val ADD_SCHEDULE = 0
         const val EDIT_SCHEDULE = 1
+        const val RCV_SCHEDULE_ID = "scheduleID"
+        const val RCV_SCHEDULE_DAY = "rcv day"
+        const val RCV_SCHEDULE_DEVICE = "rcv device"
+        const val RCV_SCHEDULE_REPEAT = "rcv repeat"
+        const val RCV_SCHEDULE_FROM = "rcv from"
+        const val RCV_SCHEDULE_TO = "rcv to"
 
         // for shared preferences
         const val AUTH_PREF = "Authentication Preferences"
@@ -71,6 +78,7 @@ public class Constants {
         const val HAVE_YOLO = "have yolo"
         const val PUBLISH_TOPIC_YOLO = "publish topic yolo"
         const val SUBSCRIBE_TOPIC_YOLO = "subscribe topic yolo"
+        const val DEVICE_LIST = "device list"
 
         //for API
         const val BASE_URL: String = "https://rndaedss.ddns.net/"

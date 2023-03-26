@@ -102,6 +102,7 @@
             android:drawableTint="@color/white"
             android:background="@drawable/choose_device_bg"
             android:padding="5dp"
+            android:visibility="gone"
             />
 
         <RadioButton
@@ -118,6 +119,7 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/choose_device_bg"
             android:padding="5dp"
+            android:visibility="gone"
             />
     </RadioGroup>
 
@@ -247,6 +249,7 @@
             android:layout_marginLeft="10dp"
             android:backgroundTint="@color/white"
             style="@android:style/Widget.Holo.Light.Spinner"
+            android:visibility="gone"
             />
 
     </LinearLayout>
@@ -308,6 +311,7 @@
             android:layout_marginLeft="10dp"
             android:backgroundTint="@color/white"
             style="@android:style/Widget.Holo.Light.Spinner"
+            android:visibility="gone"
             />
 
     </LinearLayout>
@@ -326,7 +330,7 @@
         >
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/submit_post_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/button_color"
@@ -334,6 +338,19 @@
             android:textSize="20sp"
             android:textAllCaps="false"
             android:fontFamily="@font/inconsolata"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/submit_update_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/button_color"
+            android:text="submit"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/inconsolata"
+            android:visibility="gone"
             />
     </androidx.cardview.widget.CardView>
 

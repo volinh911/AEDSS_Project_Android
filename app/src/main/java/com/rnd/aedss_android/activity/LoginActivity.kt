@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
         session = AuthenticationPreferences(this)
 
-        loginBtn = findViewById(R.id.login_btn)
+        loginBtn = findViewById(R.id.submit_post_btn)
         emailInput = findViewById(R.id.email_input)
         passwordInput = findViewById(R.id.password_input)
 

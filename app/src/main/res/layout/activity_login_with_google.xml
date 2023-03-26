@@ -45,7 +45,7 @@
         >
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/submit_post_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/button_color"

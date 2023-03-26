@@ -14,7 +14,13 @@ import com.rnd.aedss_android.viewmodel.TimeDetail
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.EditTimeActivity
 import com.rnd.aedss_android.utils.Constants.Companion.EDIT_SCHEDULE
+import com.rnd.aedss_android.utils.Constants.Companion.RCV_SCHEDULE_DAY
+import com.rnd.aedss_android.utils.Constants.Companion.RCV_SCHEDULE_DEVICE
+import com.rnd.aedss_android.utils.Constants.Companion.RCV_SCHEDULE_FROM
 import com.rnd.aedss_android.utils.Constants.Companion.SCHEDULE
+import com.rnd.aedss_android.utils.Constants.Companion.RCV_SCHEDULE_ID
+import com.rnd.aedss_android.utils.Constants.Companion.RCV_SCHEDULE_REPEAT
+import com.rnd.aedss_android.utils.Constants.Companion.RCV_SCHEDULE_TO
 
 class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>) :
     RecyclerView.Adapter<TimeDetailAdapter.TimeDetailViewHoler>() {
@@ -28,6 +34,8 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         val fromText: TextView = itemView.findViewById(R.id.from_text)
         val toText: TextView = itemView.findViewById(R.id.to_text)
         val timeItem: LinearLayout = itemView.findViewById(R.id.time_item)
+        val fromNoContent: ImageView = itemView.findViewById(R.id.from_no_content)
+        val toNoContent: ImageView = itemView.findViewById(R.id.to_no_content)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeDetailViewHoler {
@@ -82,19 +90,27 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
 
         if (time.from == "-1") {
             holder.fromText.visibility = View.GONE
+            holder.fromNoContent.visibility = View.VISIBLE
         } else {
-            holder.fromText.text = "from: ${time.from}"
+            holder.fromText.text = time.from
         }
 
         if (time.to == "-1") {
             holder.toText.visibility = View.GONE
+            holder.toNoContent.visibility = View.VISIBLE
         } else {
-            holder.toText.text = "to: ${time.to}"
+            holder.toText.text = time.to
         }
 
         holder.timeItem.setOnClickListener {
             val intent = Intent(context, EditTimeActivity::class.java)
             intent.putExtra(SCHEDULE, EDIT_SCHEDULE)
+            intent.putExtra(RCV_SCHEDULE_ID, time.scheduleId)
+            intent.putExtra(RCV_SCHEDULE_DAY, day)
+            intent.putExtra(RCV_SCHEDULE_DEVICE, time.device)
+            intent.putExtra(RCV_SCHEDULE_REPEAT, time.repeat)
+            intent.putExtra(RCV_SCHEDULE_FROM, time.from)
+            intent.putExtra(RCV_SCHEDULE_TO, time.to)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
