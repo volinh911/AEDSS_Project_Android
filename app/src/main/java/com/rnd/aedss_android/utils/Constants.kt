@@ -107,5 +107,9 @@ public class Constants {
         const val REQUEST_LIGHT_OFF = "requestLightOff"
         const val REQUEST_LIGHT_STATE = "requestLightState"
         const val REQUEST_AC_STATE = "requestTemp"
+
+        // Push notification Firebase
+        const val CHANNEL_ID = "notification_channel"
+        const val CHANNEL_NAME = "com.rnd.aedss_android"
     }
 }

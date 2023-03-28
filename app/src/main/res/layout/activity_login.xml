@@ -84,6 +84,7 @@
         />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/password_input"

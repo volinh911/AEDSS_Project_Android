@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "93179185884",
-    "project_id": "aedss-android",
-    "storage_bucket": "aedss-android.appspot.com"
+    "project_number": "119620058353",
+    "firebase_url": "https://iot-data-22125-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "iot-data-22125",
+    "storage_bucket": "iot-data-22125.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:93179185884:android:53b3f9188ed7b6636a8219",
+        "mobilesdk_app_id": "1:119620058353:android:65885ae6f7d97f5819fd50",
         "android_client_info": {
           "package_name": "com.rnd.aedss_android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "93179185884-kvo1c0rosh59p1ca61f2m9n5la9uk7tk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.rnd.aedss_android",
-            "certificate_hash": "b2062144cc586a619cb19771bd21d8f2b29c85ab"
-          }
-        },
-        {
-          "client_id": "93179185884-2jbes28h7fv3kkjko6uqpr5m1bchlc6g.apps.googleusercontent.com",
+          "client_id": "119620058353-7ie70ik501hd0adb5bmjhgaiggpf5nja.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBhxbdiKDyt7uCCsBu9thp5996kJkR8B2g"
+          "current_key": "AIzaSyAH_fPlxHhprq1-1JIYp_Xwv1ipqWHViG4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "93179185884-2jbes28h7fv3kkjko6uqpr5m1bchlc6g.apps.googleusercontent.com",
+              "client_id": "119620058353-7ie70ik501hd0adb5bmjhgaiggpf5nja.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
