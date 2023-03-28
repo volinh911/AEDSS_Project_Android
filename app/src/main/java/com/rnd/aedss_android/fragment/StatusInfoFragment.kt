@@ -229,6 +229,8 @@ class StatusInfoFragment : Fragment() {
                 // start your next activity
                 startActivity(intent)
             }
+        } else {
+            gallerySection.visibility = View.GONE
         }
 
         roomSession.addDeviceList(deviceListString)

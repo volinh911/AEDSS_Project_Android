@@ -26,8 +26,12 @@ class RoomPreferences {
         editor.commit()
     }
 
-    fun addYoloSession(publishTopic: String, subscribeTopic: String) {
-        editor.putBoolean(HAVE_YOLO, true)
+    fun addYoloSession(bool: Boolean) {
+        editor.putBoolean(HAVE_YOLO, bool)
+        editor.commit()
+    }
+
+    fun addTopic(publishTopic: String, subscribeTopic: String) {
         editor.putString(PUBLISH_TOPIC_YOLO, publishTopic)
         editor.putString(SUBSCRIBE_TOPIC_YOLO, subscribeTopic)
         editor.commit()

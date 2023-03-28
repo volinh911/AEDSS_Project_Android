@@ -384,7 +384,7 @@ class EditTimeActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                     showAlertDialog(EDIT_SCHEDULE_ALERT, false)
-                    Log.d("post config: ", "failure")
+                    Log.d("edit schedule: ", "failure")
                 }
             })
     }
@@ -410,19 +410,8 @@ class EditTimeActivity : AppCompatActivity() {
             if (success) {
                 titleDialog.text = "Notification"
                 alertText.text =
-                    "Create new Schedule successfully. Click ok to move back to Schedule List"
-                okBtn.setOnClickListener {
-                    val intent = Intent(this, RoomInfoActivity::class.java)
-                    intent.putExtra("room_name", rcvRoom)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
-                okSection.setOnClickListener {
-                    val intent = Intent(this, RoomInfoActivity::class.java)
-                    intent.putExtra("room_name", rcvRoom)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
+                    "Create new Schedule successfully. Click OK to move back to Schedule List"
+
             } else {
                 alertText.text = "There is an error occurred. Cannot create new Schedule."
             }
@@ -430,22 +419,25 @@ class EditTimeActivity : AppCompatActivity() {
             if (success) {
                 titleDialog.text = "Notification"
                 alertText.text =
-                    "Update Schedule successfully. Click ok to move back to Schedule List"
-                okBtn.setOnClickListener {
-                    val intent = Intent(this, RoomInfoActivity::class.java)
-                    intent.putExtra("room_name", rcvRoom)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
-                okSection.setOnClickListener {
-                    val intent = Intent(this, RoomInfoActivity::class.java)
-                    intent.putExtra("room_name", rcvRoom)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
+                    "Update Schedule successfully. Click OK to move back to Schedule List"
             } else {
-                alertText.text = "There is an error occurred. Cannot create new Schedule."
+                alertText.text = "There is an error occurred. Cannot update Schedule."
             }
+        } else if (command == ALERT) {
+            alertText.text = "There is an error occurred. Please restart and try again"
+        }
+
+        okBtn.setOnClickListener {
+            val intent = Intent(this, RoomInfoActivity::class.java)
+            intent.putExtra("room_name", rcvRoom)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+        okSection.setOnClickListener {
+            val intent = Intent(this, RoomInfoActivity::class.java)
+            intent.putExtra("room_name", rcvRoom)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
     }
 
@@ -461,12 +453,11 @@ class EditTimeActivity : AppCompatActivity() {
                     exception: Throwable?
                 ) {
                     Log.d(this.javaClass.name, "Failed to disconnect")
-                    showAlertDialog("", false)
+                    showAlertDialog(ALERT, false)
                 }
             })
         } else {
             Log.d(this.javaClass.name, "Impossible to disconnect, no server connected")
-            showAlertDialog("", false)
         }
     }
 
@@ -480,7 +471,7 @@ class EditTimeActivity : AppCompatActivity() {
 
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                     Log.d(this.javaClass.name, "Connection failure: ${exception.toString()}")
-                    showAlertDialog("", false)
+                    showAlertDialog(ALERT, false)
                 }
             },
             object : MqttCallback {

@@ -32,22 +32,22 @@ class LoginActivity : AppCompatActivity() {
     lateinit var session: AuthenticationPreferences
 
     // Declare the launcher at the top of your Activity/Fragment:
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            // FCM SDK (and your app) can post notifications.
-        } else {
-            // TODO: Inform user that that your app will not show notifications.
-        }
-    }
+//    private val requestPermissionLauncher = registerForActivityResult(
+//        ActivityResultContracts.RequestPermission()
+//    ) { isGranted: Boolean ->
+//        if (isGranted) {
+//            // FCM SDK (and your app) can post notifications.
+//        } else {
+//            // TODO: Inform user that that your app will not show notifications.
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        requestPermissionLauncher
-        logRegToken()
+//        requestPermissionLauncher
+//        logRegToken()
 
         session = AuthenticationPreferences(this)
 
@@ -135,23 +135,21 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
-    fun logRegToken() {
-        // [START log_reg_token]
-        Firebase.messaging.getToken().addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@addOnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-            val msg = "FCM Registration token: $token"
-            Log.d(TAG, msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
-        }
-        // [END log_reg_token]
-    }
+//    fun logRegToken() {
+//        Firebase.messaging.getToken().addOnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+//                return@addOnCompleteListener
+//            }
+//
+//            // Get new FCM registration token
+//            val token = task.result
+//
+//            // Log and toast
+//            val msg = "FCM Registration token: $token"
+//            Log.d(TAG, msg)
+//            Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+//        }
+//    }
 
 }

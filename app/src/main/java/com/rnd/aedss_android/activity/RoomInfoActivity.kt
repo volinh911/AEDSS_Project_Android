@@ -164,19 +164,23 @@ class RoomInfoActivity : AppCompatActivity() {
                     response: Response<List<YoloData>>
                 ) {
                     if (response?.body() == null) {
-                        configBtn.visibility = View.VISIBLE
+                        configBtn.visibility = View.GONE
+                        roomSession.addYoloSession(false)
                         Log.d("Error yolo: ", "Error")
+                    } else {
+                        var result = response.body()!!
+//                        var publishTopic = result[0].publish
+//                        var subscribeTopic = result[0].subscribe
+//                        if (publishTopic != null) {
+//                            if (subscribeTopic != null) {
+//
+//                            }
+//                        }
+
+                        roomSession.addYoloSession(true)
+                        configBtn.visibility = View.VISIBLE
+                        configBtn.setOnClickListener { initConfigData() }
                     }
-                    var result = response.body()!!
-                    var publishTopic = result[0].publish
-                    var subscribeTopic = result[0].subscribe
-                    if (publishTopic != null) {
-                        if (subscribeTopic != null) {
-                            roomSession.addYoloSession(publishTopic, subscribeTopic)
-                        }
-                    }
-                    configBtn.visibility = View.VISIBLE
-                    configBtn.setOnClickListener { initConfigData() }
                 }
 
                 override fun onFailure(call: Call<List<YoloData>>, t: Throwable) {
