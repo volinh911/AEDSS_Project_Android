@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.rnd.aedss_android.R
-import com.rnd.aedss_android.activity.LoginActivity
+import com.rnd.aedss_android.activity.user_activity.LoginActivity
 import com.rnd.aedss_android.utils.Constants.Companion.CHANNEL_ID
 import com.rnd.aedss_android.utils.Constants.Companion.CHANNEL_NAME
 

@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,7 +25,6 @@ import com.rnd.aedss_android.utils.api.RetrofitInstance
 import com.rnd.aedss_android.utils.mqtt.MQTTClient
 import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
 import com.rnd.aedss_android.utils.preferences.RoomPreferences
-import okhttp3.ResponseBody
 import org.eclipse.paho.client.mqttv3.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -251,7 +249,7 @@ class RoomInfoActivity : AppCompatActivity() {
         var okBtn = dialogView.findViewById<Button>(R.id.ok_btn)
         var okSection = dialogView.findViewById<CardView>(R.id.ok_section)
         var titleDialog = dialogView.findViewById<TextView>(R.id.title_dialog)
-        var alertText = dialogView.findViewById<TextView>(R.id.option_dialog_text)
+        var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
 
         okBtn.setOnClickListener {
             alertDialog.dismiss()
@@ -261,7 +259,7 @@ class RoomInfoActivity : AppCompatActivity() {
         }
 
         if (success) {
-            titleDialog.text = "Notification"
+            titleDialog.text = getString(R.string.NOTI_TEXT)
             alertText.text = "Set up new config check successfully."
         } else {
             alertText.text = "There is an error occurred. Please restart and try again"

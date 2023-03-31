@@ -3,7 +3,7 @@ package com.rnd.aedss_android.utils.preferences
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import com.rnd.aedss_android.activity.LoginActivity
+import com.rnd.aedss_android.activity.user_activity.LoginActivity
 import com.rnd.aedss_android.utils.Constants.Companion.AUTHENTICATION_TOKEN
 import com.rnd.aedss_android.utils.Constants.Companion.IS_LOGGED_IN
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD
@@ -28,6 +28,13 @@ class AuthenticationPreferences {
         editor.putBoolean(IS_LOGGED_IN, true)
         editor.putString(EMAIL, email)
         editor.putString(PASSWORD, password)
+        editor.putString(AUTHENTICATION_TOKEN, auth)
+        editor.putString(USER_ID, userid)
+        editor.commit()
+    }
+
+    fun addAuthAndUser(auth: String, userid: String) {
+        editor.putBoolean(IS_LOGGED_IN, true)
         editor.putString(AUTHENTICATION_TOKEN, auth)
         editor.putString(USER_ID, userid)
         editor.commit()

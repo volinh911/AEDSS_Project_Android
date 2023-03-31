@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">AEDSS_Android</string>
+    <string name="forgot_pass_instruction_text">Enter the email you use and you will receive an email containing a token for resetting your password</string>
+    <string name="NOTI_TEXT">Notification</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <string-array name="hours">

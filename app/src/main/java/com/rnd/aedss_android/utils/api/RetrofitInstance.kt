@@ -1,6 +1,6 @@
 package com.rnd.aedss_android.utils.api
 
-import com.rnd.aedss_android.utils.Constants.Companion.BASE_URL
+import com.rnd.aedss_android.utils.Constants.Companion.BASE_URL_API
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,7 +10,7 @@ object RetrofitInstance {
         get() {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(BASE_URL_API)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }

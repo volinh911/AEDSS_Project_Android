@@ -16,18 +16,30 @@
         android:layout_alignParentTop="true"
         >
 
+        <ImageView
+            android:id="@+id/change_password_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/reset_password_icon"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:visibility="visible"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
         <TextView
             android:id="@+id/room_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Room List"
+            android:layout_centerInParent="true"
             android:fontFamily="@font/inconsolata"
+            android:text="Room List"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
-            />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/logout_btn"

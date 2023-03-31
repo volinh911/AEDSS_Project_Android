@@ -1,6 +1,5 @@
-package com.rnd.aedss_android.activity
+package com.rnd.aedss_android.activity.user_activity
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,13 +8,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
 import com.rnd.aedss_android.R
+import com.rnd.aedss_android.activity.RoomListActivity
 import com.rnd.aedss_android.datamodel.ResponseData
+import com.rnd.aedss_android.utils.Constants.Companion.EMPTY_INPUT
+import com.rnd.aedss_android.utils.Constants.Companion.ERROR_NOTIFY
 import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
 import com.rnd.aedss_android.utils.Constants.Companion.convertToMd5
 import com.rnd.aedss_android.utils.api.RetrofitInstance
@@ -28,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginBtn: Button
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
+    private lateinit var forgotPassword: TextView
 
     lateinit var session: AuthenticationPreferences
 
@@ -68,14 +67,21 @@ class LoginActivity : AppCompatActivity() {
             var email = emailInput.text.toString().trim()
 
             if (email.isEmpty() && password.isEmpty()) {
-                showLoginAlertDialog()
+                showLoginAlertDialog(EMPTY_INPUT)
             } else {
                 postLoginUser(email, convertToMd5(password))
             }
         }
+
+        forgotPassword = findViewById(R.id.login_btn)
+        forgotPassword.setOnClickListener {
+            var intent: Intent = Intent(applicationContext, ForgotPassActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
-    private fun showLoginAlertDialog() {
+    private fun showLoginAlertDialog(command: String) {
         val dialogView = View.inflate(this, R.layout.alert_dialog, null)
         val builder = android.app.AlertDialog.Builder(this)
         builder.setView(dialogView)
@@ -86,12 +92,17 @@ class LoginActivity : AppCompatActivity() {
 
         var okBtn = dialogView.findViewById<Button>(R.id.ok_btn)
         var okSection = dialogView.findViewById<CardView>(R.id.ok_section)
+        var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
 
         okBtn.setOnClickListener {
             alertDialog.dismiss()
         }
         okSection.setOnClickListener {
             alertDialog.dismiss()
+        }
+
+        if (command == ERROR_NOTIFY) {
+            alertText.text = "There is something wrong. Please check again."
         }
     }
 
@@ -104,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                     response: Response<ResponseData>
                 ) {
                     if (response?.body() == null) {
-                        showLoginAlertDialog()
+                        showLoginAlertDialog(ERROR_NOTIFY)
                         return
                     }
 
@@ -130,6 +141,8 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                     Log.d("Error login: ", t.message.toString())
+                    showLoginAlertDialog(ERROR_NOTIFY)
+                    return
                 }
 
             })

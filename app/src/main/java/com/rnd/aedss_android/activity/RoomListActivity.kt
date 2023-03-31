@@ -1,5 +1,6 @@
 package com.rnd.aedss_android.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.R
+import com.rnd.aedss_android.activity.user_activity.ChangePasswordActivity
 import com.rnd.aedss_android.adapter.RoomListAdapter
 import com.rnd.aedss_android.datamodel.RoomData
 import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
@@ -25,6 +27,7 @@ class RoomListActivity : AppCompatActivity() {
     var roomList: MutableList<Room> = mutableListOf()
 
     private lateinit var logoutBtn: ImageView
+    private lateinit var changePasswordBtn: ImageView
 
     lateinit var session: AuthenticationPreferences
     var auth: String = ""
@@ -50,6 +53,13 @@ class RoomListActivity : AppCompatActivity() {
         roomListRcv.layoutManager = LinearLayoutManager(this)
         roomListRcv.adapter = RoomListAdapter(applicationContext, roomList)
         initData()
+
+        changePasswordBtn = findViewById(R.id.change_password_btn)
+        changePasswordBtn.setOnClickListener {
+            var intent: Intent = Intent(applicationContext, ChangePasswordActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     private fun showLogoutAlertDialog() {

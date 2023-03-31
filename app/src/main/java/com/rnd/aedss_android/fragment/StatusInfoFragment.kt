@@ -17,7 +17,6 @@ import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.GalleryActivity
 import com.rnd.aedss_android.activity.RoomListActivity
 import com.rnd.aedss_android.datamodel.device_data.*
-import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.utils.Constants.Companion.AC_DEVICE
 import com.rnd.aedss_android.utils.Constants.Companion.BROKER
 import com.rnd.aedss_android.utils.Constants.Companion.CLIENT_ID
@@ -317,7 +316,7 @@ class StatusInfoFragment : Fragment() {
             alertDialog.dismiss()
         }
 
-        var alertText = dialogView.findViewById<TextView>(R.id.option_dialog_text)
+        var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
         alertText.text = "There is an error occurred. Please restart and try again"
     }
 
@@ -443,7 +442,7 @@ class StatusInfoFragment : Fragment() {
             if (!isPublishAc && !isPublishLight && !isPublishDoor) {
                 showAlertDialog()
             }
-        }, 5000)
+        }, 8000)
     }
 
     private fun publishTopic(topic: String, request: String) {
@@ -500,7 +499,7 @@ class StatusInfoFragment : Fragment() {
         var okBtn = dialogView.findViewById<Button>(R.id.ok_btn)
         var okSection = dialogView.findViewById<CardView>(R.id.ok_section)
         var titleDialog = dialogView.findViewById<TextView>(R.id.title_dialog)
-        var alertText = dialogView.findViewById<TextView>(R.id.option_dialog_text)
+        var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
 
         okBtn.setOnClickListener {
             alertDialog.dismiss()

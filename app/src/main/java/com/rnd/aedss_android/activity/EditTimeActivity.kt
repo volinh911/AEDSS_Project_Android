@@ -401,7 +401,7 @@ class EditTimeActivity : AppCompatActivity() {
         var okBtn = dialogView.findViewById<Button>(R.id.ok_btn)
         var okSection = dialogView.findViewById<CardView>(R.id.ok_section)
 
-        var alertText = dialogView.findViewById<TextView>(R.id.option_dialog_text)
+        var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
         var titleDialog = dialogView.findViewById<TextView>(R.id.title_dialog)
 
         if (command.isEmpty()) {

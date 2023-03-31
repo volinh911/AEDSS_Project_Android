@@ -81,16 +81,20 @@ public class Constants {
         const val DEVICE_LIST = "device list"
 
         //for API
-        const val BASE_URL: String = "https://rndaedss.ddns.net/"
-        const val POST_LOGIN: String = "api/v1/user" //no need token
-        const val GET_ALL_ROOMS: String = "api/v1/room"
-        const val GET_ALL_DEVICES: String = "api/v1/room/device/" //{roomName}
-        const val GET_ALL_SCHEDULES: String = "api/v1/room/schedules/" //{roomName}
-        const val POST_SCHEDULE: String = "api/v1/schedules"
-        const val GET_CONFIG: String = "api/v1/config/" //{roomName}
-        const val POST_CONFIG: String = "api/v1/config/"
-        const val GET_SCHEDULER_DETAIL: String = "api/v1/scheduler"
-        const val GET_YOLO_DETAIL: String = "api/v1/yolov5/" //{roomName}
+        const val BASE_URL_API: String = "https://rndaedss.ddns.net/"
+        const val POST_LOGIN_API: String = "api/v1/user" //no need token
+        const val CHECK_EMAIL_API: String = "api/v1/user/checkemail"
+        const val SEND_TOKEN_API: String = "api/v1/user/token"
+        const val VALIDATE_TOKEN_API: String = "api/v1/user/validate"
+        const val CHANGE_PASS_API: String = "api/v1/user/change"
+        const val GET_ALL_ROOMS_API: String = "api/v1/room"
+        const val GET_ALL_DEVICES_API: String = "api/v1/room/device/" //{roomName}
+        const val GET_ALL_SCHEDULES_API: String = "api/v1/room/schedules/" //{roomName}
+        const val POST_SCHEDULE_API: String = "api/v1/schedules"
+        const val GET_CONFIG_API: String = "api/v1/config/" //{roomName}
+        const val POST_CONFIG_API: String = "api/v1/config/"
+        const val GET_SCHEDULER_DETAIL_API: String = "api/v1/scheduler"
+        const val GET_YOLO_DETAIL_API: String = "api/v1/yolov5/" //{roomName}
 
         // for MQTT
         const val BROKER = "tcp://rndaedss.ddns.net:1883"
@@ -111,5 +115,15 @@ public class Constants {
         // Push notification Firebase
         const val CHANNEL_ID = "notification_channel"
         const val CHANNEL_NAME = "com.rnd.aedss_android"
+
+        // error
+        const val EMPTY_INPUT = "empty"
+        const val ERROR_NOTIFY = "error"
+        const val ERROR_NOT_EQUAL= "not equal"
+
+        // change/reset pass
+        const val PASSWORD_INTENT = "password intent"
+        const val CHANGE_PASSWORD = 0
+        const val RESET_PASSWORD = 1
     }
 }

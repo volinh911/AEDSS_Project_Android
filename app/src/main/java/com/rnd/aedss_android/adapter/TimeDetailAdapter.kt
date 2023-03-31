@@ -2,7 +2,6 @@ package com.rnd.aedss_android.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.viewmodel.TimeDetail
@@ -150,7 +148,7 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         }
 
         holder.deleteSchedule.setOnClickListener {
-            deleteSchedule(time.scheduleId)
+            showDeleteAlertDialog(time.scheduleId)
         }
     }
 
@@ -200,7 +198,7 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         var okBtn = dialogView.findViewById<Button>(R.id.ok_btn)
         var okSection = dialogView.findViewById<CardView>(R.id.ok_section)
 
-        var alertText = dialogView.findViewById<TextView>(R.id.option_dialog_text)
+        var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
         var titleDialog = dialogView.findViewById<TextView>(R.id.title_dialog)
 
         if (command == ALERT) {
@@ -289,5 +287,39 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         } else {
             Log.d(this.javaClass.name, "Impossible to disconnect, no server connected")
         }
+    }
+
+    private fun showDeleteAlertDialog(scheduleId: String) {
+        val dialogView = View.inflate(context, R.layout.logout_alert_dialog, null)
+        val builder = android.app.AlertDialog.Builder(context)
+        builder.setView(dialogView)
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        var okBtn = dialogView.findViewById<Button>(R.id.ok_btn)
+        var okSection = dialogView.findViewById<CardView>(R.id.ok_section)
+
+        var cancelBtn = dialogView.findViewById<Button>(R.id.cancel_btn)
+        var cancelSection = dialogView.findViewById<CardView>(R.id.cancel_section)
+
+        var dialogText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
+        dialogText.text = "Are you sure you wish to delete this schedule?"
+
+        cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        cancelSection.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        okSection.setOnClickListener {
+            deleteSchedule(scheduleId)
+        }
+        okBtn.setOnClickListener {
+            deleteSchedule(scheduleId)
+        }
+
     }
 }

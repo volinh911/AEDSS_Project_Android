@@ -29,7 +29,7 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id="@+id/option_dialog_text"
+        android:id="@+id/alert_dialog_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/line"
@@ -37,14 +37,14 @@
         android:fontFamily="@font/inconsolata"
         android:textColor="@color/background_color"
         android:textSize="14sp"
-        android:text="Do you want to log out?"
+        android:text="Are you sure you wish to logout?"
         android:textAlignment="center"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/option_dialog_text"
+        android:layout_below="@id/alert_dialog_text"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:layout_marginTop="10dp"
