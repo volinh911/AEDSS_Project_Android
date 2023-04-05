@@ -33,7 +33,7 @@ class GalleryAdapter(private val sectionList: ArrayList<SectionImage>) :
         val string: String = sectionImage.imgList.substring(1, sectionImage.imgList.length - 1)
         val imgList = string.split(',').toTypedArray()
 
-        //
+
     }
 
     override fun getItemCount(): Int {

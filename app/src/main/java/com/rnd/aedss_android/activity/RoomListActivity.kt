@@ -10,13 +10,17 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.user_activity.ChangePasswordActivity
 import com.rnd.aedss_android.adapter.RoomListAdapter
 import com.rnd.aedss_android.datamodel.RoomData
+import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
 import com.rnd.aedss_android.utils.api.RetrofitInstance
+import com.rnd.aedss_android.utils.mqtt.MQTTClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,9 +47,11 @@ class RoomListActivity : AppCompatActivity() {
         auth = session.getAuthToken().toString()
         userid = session.getUserid().toString()
 
+        subscribeTopics(userid)
+
         logoutBtn = findViewById(R.id.logout_btn)
         logoutBtn.setOnClickListener {
-            showLogoutAlertDialog()
+            showAlertDialog()
         }
 
         roomListRcv = findViewById(R.id.list_room)
@@ -62,7 +68,7 @@ class RoomListActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLogoutAlertDialog() {
+    private fun showAlertDialog() {
         val dialogView = View.inflate(this, R.layout.logout_alert_dialog, null)
         val builder = android.app.AlertDialog.Builder(this)
         builder.setView(dialogView)
@@ -111,6 +117,17 @@ class RoomListActivity : AppCompatActivity() {
                     Log.d("Error Room List: ", "Error")
                 }
             })
+    }
+
+    fun subscribeTopics(userid: String) {
+        Firebase.messaging.subscribeToTopic(userid)
+            .addOnCompleteListener { task ->
+                var msg = "Subscribed"
+                if (!task.isSuccessful) {
+                    msg = "Subscribe failed"
+                }
+                Log.d("fb subscribe topic", msg)
+            }
     }
 
 }

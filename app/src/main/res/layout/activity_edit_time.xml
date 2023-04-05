@@ -354,4 +354,14 @@
             />
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AEDSS"
+        android:fontFamily="@font/inconsolata"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_margin="20dp"/>
+
 </RelativeLayout>

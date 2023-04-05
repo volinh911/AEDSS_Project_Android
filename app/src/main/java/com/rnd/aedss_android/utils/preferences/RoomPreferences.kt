@@ -31,26 +31,12 @@ class RoomPreferences {
         editor.commit()
     }
 
-    fun addTopic(publishTopic: String, subscribeTopic: String) {
-        editor.putString(PUBLISH_TOPIC_YOLO, publishTopic)
-        editor.putString(SUBSCRIBE_TOPIC_YOLO, subscribeTopic)
-        editor.commit()
-    }
-
     fun getRoomName(): String? {
         return pref.getString(ROOM_NAME, "")
     }
 
     fun doesHaveYolo(): Boolean? {
         return pref.getBoolean(HAVE_YOLO, false)
-    }
-
-    fun getPublishYoloTopic(): String? {
-        return pref.getString(PUBLISH_TOPIC_YOLO, "")
-    }
-
-    fun getSubscribeYoloTopic(): String? {
-        return pref.getString(SUBSCRIBE_TOPIC_YOLO, "")
     }
 
     fun addDeviceList(deviceList: String) {

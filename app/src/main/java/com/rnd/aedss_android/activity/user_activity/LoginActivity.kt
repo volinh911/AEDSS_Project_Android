@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.RoomListActivity
 import com.rnd.aedss_android.datamodel.ResponseData
@@ -30,23 +32,9 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var session: AuthenticationPreferences
 
-    // Declare the launcher at the top of your Activity/Fragment:
-//    private val requestPermissionLauncher = registerForActivityResult(
-//        ActivityResultContracts.RequestPermission()
-//    ) { isGranted: Boolean ->
-//        if (isGranted) {
-//            // FCM SDK (and your app) can post notifications.
-//        } else {
-//            // TODO: Inform user that that your app will not show notifications.
-//        }
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-//        requestPermissionLauncher
-//        logRegToken()
 
         session = AuthenticationPreferences(this)
 
@@ -134,6 +122,7 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     session.createLoginSession(email, password, auth, userid)
+                    subscribeTopics(userid)
                     var intent: Intent = Intent(applicationContext, RoomListActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -148,21 +137,15 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
-//    fun logRegToken() {
-//        Firebase.messaging.getToken().addOnCompleteListener { task ->
-//            if (!task.isSuccessful) {
-//                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-//                return@addOnCompleteListener
-//            }
-//
-//            // Get new FCM registration token
-//            val token = task.result
-//
-//            // Log and toast
-//            val msg = "FCM Registration token: $token"
-//            Log.d(TAG, msg)
-//            Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
-//        }
-//    }
+    fun subscribeTopics(userid: String) {
+        Firebase.messaging.subscribeToTopic(userid)
+            .addOnCompleteListener { task ->
+                var msg = "Subscribed"
+                if (!task.isSuccessful) {
+                    msg = "Subscribe failed"
+                }
+                Log.d("fb subscribe topic", msg)
+            }
+    }
 
 }

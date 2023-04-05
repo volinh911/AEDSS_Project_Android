@@ -54,7 +54,6 @@ class StatusInfoFragment : Fragment() {
 
     lateinit var roomSession: RoomPreferences
     lateinit var rcvRoom: String
-    var haveYolo: Boolean = false
 
     lateinit var authSession: AuthenticationPreferences
     var auth: String = ""
@@ -99,7 +98,6 @@ class StatusInfoFragment : Fragment() {
 
         roomSession = context?.let { RoomPreferences(it) }!!
         rcvRoom = roomSession.getRoomName()!!
-        haveYolo = roomSession.doesHaveYolo()!!
 
         authSession = context?.let { AuthenticationPreferences(it) }!!
         auth = authSession.getAuthToken().toString()
@@ -221,7 +219,7 @@ class StatusInfoFragment : Fragment() {
             deviceListString += LIGHT_DEVICE
         }
 
-        if (haveYolo) {
+        if (roomSession.doesHaveYolo()!!) {
             gallerySection.visibility = View.VISIBLE
             gallerySection.setOnClickListener {
                 val intent = Intent(context, GalleryActivity::class.java)
@@ -345,8 +343,8 @@ class StatusInfoFragment : Fragment() {
 
                     if (message.toString().contains("temp")) {
                         acStatus.visibility = View.VISIBLE
-                        val msg = message.toString().replace("temp: ", "")
-                        if (msg == "1") {
+                        var msg = message.toString().replace("temp: ", "")
+                        if (msg == "0.0") {
                             acStatus.setImageResource(R.drawable.off_icon)
                             onClickDeviceSection(acSection, "AC", false)
                         } else {
@@ -364,16 +362,10 @@ class StatusInfoFragment : Fragment() {
                             onClickDeviceSection(lightSection, "Light", true)
                         }
                     } else {
+                        val msg = message.toString().replace("door:", "")
                         doorStatus.visibility = View.VISIBLE
-                        if (message.toString() == "1") {
-                            doorStatus.setImageResource(R.drawable.locked_ic)
-                            context?.let { ContextCompat.getColor(it, R.color.tv_color) }
-                                ?.let {
-                                    doorStatus.setColorFilter(
-                                        it,
-                                        android.graphics.PorterDuff.Mode.SRC_IN
-                                    )
-                                }
+                        if (msg == "1") {
+                            doorStatus.setImageResource(R.drawable.unlocked_ic)
                             onClickDeviceSection(doorSection, DOOR_DEVICE, false)
 
                         } else {

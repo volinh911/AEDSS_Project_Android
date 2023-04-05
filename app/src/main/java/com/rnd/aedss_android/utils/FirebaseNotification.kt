@@ -15,6 +15,7 @@ import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.user_activity.LoginActivity
 import com.rnd.aedss_android.utils.Constants.Companion.CHANNEL_ID
 import com.rnd.aedss_android.utils.Constants.Companion.CHANNEL_NAME
+import com.rnd.aedss_android.utils.Constants.Companion.convertToMd5
 
 
 class FirebaseNotification: FirebaseMessagingService() {
@@ -54,32 +55,13 @@ class FirebaseNotification: FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d("noti", "From: ${remoteMessage.from}")
-        Log.d("noti", "Content: ${remoteMessage.notification!!.body!!}")
 
-        if (remoteMessage.notification != null) {
+        // Check if message contains a notification payload.
+        remoteMessage.notification?.let {
+            Log.d("noti", "Message Notification Body: ${it.title}")
+            Log.d("noti", "Message Notification Body: ${it.body}")
             generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!)
         }
-    }
 
-    // [START on_new_token]
-    /**
-     * Called if the FCM registration token is updated. This may occur if the security of
-     * the previous token had been compromised. Note that this is called when the
-     * FCM registration token is initially generated so this is where you would retrieve the token.
-     */
-    override fun onNewToken(token: String) {
-        Log.d("onNewToken", "Refreshed token: $token")
-
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // FCM registration token to your app server.
-        sendRegistrationToServer(token)
-    }
-    // [END on_new_token]
-
-    private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
-        Log.d("sendToken", "sendRegistrationTokenToServer($token)")
     }
 }
