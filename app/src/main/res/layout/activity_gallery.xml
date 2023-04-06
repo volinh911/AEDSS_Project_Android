@@ -1,62 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.GalleryActivity"
+    android:background="@color/background_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_color"
-        tools:context=".activity.GalleryActivity">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        >
 
-        <RelativeLayout
-            android:id="@+id/navbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentTop="true"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/camera_icon"
             android:layout_centerHorizontal="true"
-            >
+            android:layout_toLeftOf="@id/gallery_name"/>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/camera_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_toLeftOf="@id/gallery_name"/>
-
-            <TextView
-                android:id="@+id/gallery_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gallery"
-                android:fontFamily="@font/inconsolata"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:layout_centerInParent="true"
-                android:textAlignment="center"
-                />
-
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/line_navbar"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/navbar"
-            android:layout_marginTop="10dp"
-            android:background="@color/black" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/gallery_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line_navbar"
-            android:id="@+id/gallery_list"/>
+            android:text="Gallery"
+            android:fontFamily="@font/inconsolata"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            />
 
     </RelativeLayout>
-</layout>
+
+    <View
+        android:id="@+id/line_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/navbar"
+        android:layout_marginTop="10dp"
+        android:background="@color/black" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_navbar"
+        android:id="@+id/gallery_list"/>
+
+</RelativeLayout>

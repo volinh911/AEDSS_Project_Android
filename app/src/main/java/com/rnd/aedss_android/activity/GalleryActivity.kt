@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rnd.aedss_android.R
-import com.rnd.aedss_android.adapter.ImageListAdapter
+import com.rnd.aedss_android.adapter.GalleryAdapter
 import com.rnd.aedss_android.datamodel.ImageData
 import com.rnd.aedss_android.datamodel.device_data.YoloData
 import com.rnd.aedss_android.utils.Constants
@@ -20,7 +20,7 @@ import com.rnd.aedss_android.utils.api.RetrofitInstance
 import com.rnd.aedss_android.utils.mqtt.MQTTClient
 import com.rnd.aedss_android.utils.preferences.AuthenticationPreferences
 import com.rnd.aedss_android.utils.preferences.RoomPreferences
-import com.rnd.aedss_android.viewmodel.Image
+import com.rnd.aedss_android.viewmodel.SectionImage
 import org.eclipse.paho.client.mqttv3.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,9 +28,8 @@ import retrofit2.Response
 
 class GalleryActivity : AppCompatActivity() {
 
-    private lateinit var imageListRcv: RecyclerView
-    private lateinit var imageList: ArrayList<Image>
-    private lateinit var imageListAdapter: ImageListAdapter
+    private lateinit var sectionListRcv: RecyclerView
+    var sectionImageList: MutableList<SectionImage> = mutableListOf()
 
     lateinit var roomSession: RoomPreferences
     lateinit var rcvRoom: String
@@ -46,9 +45,10 @@ class GalleryActivity : AppCompatActivity() {
     var dateString: String = ""
     var detailString: String = ""
 
+
     val detailList = """
         [{"date": "2023-04-03", "ids": ["1k1h88DV6s6wZ1HwKKsltYgGvVDc_mLcT", "1BexwF2hTzYrSnOhi5kfsQFuTYXVbxgeP", "12EX3FgqKLCCMJo707Wf6tyoeKfbBUogc"]}, {"date": "2023-03-27", "ids": ["1TcRxybSmyANW8kbpQzzS71RhkhFBUrKs", "1ICho0YbJHsC6eD-M-mTFnkZTM4HL5cXL"]}]
-    """.trimIndent()
+    """
 
     private lateinit var mqttClient: MQTTClient
 
@@ -63,18 +63,17 @@ class GalleryActivity : AppCompatActivity() {
         auth = authSession.getAuthToken().toString()
         userid = authSession.getUserid().toString()
 
-        var id: String = Constants.CLIENT_ID + "_" + (('a'..'z').random()).toString() + "_" + ((0..1000).random()).toString()
+        var id: String =
+            Constants.CLIENT_ID + "_" + (('a'..'z').random()).toString() + "_" + ((0..1000).random()).toString()
         mqttClient = MQTTClient(this, Constants.BROKER, id)
 
+//        initYoloData()
 
-
-        initYoloData()
-
-        imageListRcv = findViewById(R.id.gallery_list)
-        imageListRcv.setHasFixedSize(true)
-        imageListRcv.layoutManager = LinearLayoutManager(this)
-
-
+        sectionListRcv = findViewById(R.id.gallery_list)
+        sectionListRcv.setHasFixedSize(true)
+        sectionListRcv.layoutManager = LinearLayoutManager(this)
+        sectionListRcv.adapter = GalleryAdapter(applicationContext, sectionImageList)
+        showGallery(detailList)
     }
 
     private fun initYoloData() {
@@ -195,6 +194,7 @@ class GalleryActivity : AppCompatActivity() {
                 override fun messageArrived(topic: String?, message: MqttMessage?) {
                     val msg = "Receive message: ${message.toString()} from topic: $topic"
                     Log.d(this.javaClass.name, message.toString())
+                    showGallery(message.toString())
                 }
 
                 override fun deliveryComplete(token: IMqttDeliveryToken?) {
@@ -238,5 +238,19 @@ class GalleryActivity : AppCompatActivity() {
         } else {
             Log.d(this.javaClass.name, "Failed to subscribe")
         }
+    }
+
+    private fun showGallery(receiveMessage: String) {
+        val typeToken = object : TypeToken<List<ImageData>>() {}.type
+        val list = Gson().fromJson<List<ImageData>>(receiveMessage, typeToken)
+
+        for (item in list) {
+            var sectionImage = item.date?.let { SectionImage(it, item.ids.toString()) }
+            if (sectionImage != null) {
+                sectionImageList.add(sectionImage)
+            }
+        }
+
+        sectionListRcv.adapter?.notifyDataSetChanged()
     }
 }

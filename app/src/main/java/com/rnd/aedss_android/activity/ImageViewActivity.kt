@@ -15,10 +15,10 @@ class ImageViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_image_view)
 
         image = findViewById(R.id.image)
-        val rcvImage = intent.getParcelableExtra<Image>("image")
+        val rcvImage = intent.getStringExtra("image").toString()
         if (rcvImage != null) {
             Glide.with(this)
-                .load(rcvImage.urlImage)
+                .load(rcvImage)
                 .into(image)
         }
     }
