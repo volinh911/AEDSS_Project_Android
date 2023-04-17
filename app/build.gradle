@@ -69,7 +69,7 @@ dependencies {
     // mqtt
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.4'
-    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+//    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.3.0')
