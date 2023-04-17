@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
             if (email.isEmpty() && password.isEmpty()) {
                 showLoginAlertDialog(EMPTY_INPUT)
             } else {
+                Log.d("hass", convertToMd5(password))
                 postLoginUser(email, convertToMd5(password))
             }
         }

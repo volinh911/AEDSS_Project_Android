@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.viewmodel.TimeDetail
@@ -21,6 +22,7 @@ import retrofit2.Response
 
 class TimeListInfoFragment : Fragment() {
 
+    private lateinit var nothingText: TextView
     private lateinit var timeListRcv: RecyclerView
     var timeList: MutableList<TimeDetail> = mutableListOf()
 
@@ -45,6 +47,8 @@ class TimeListInfoFragment : Fragment() {
         auth = authSession.getAuthToken().toString()
         userid = authSession.getUserid().toString()
 
+        nothingText = view.findViewById(R.id.nothing_tv)
+
         initScheduleData()
 
         timeListRcv = view.findViewById(R.id.time_list)
@@ -64,6 +68,7 @@ class TimeListInfoFragment : Fragment() {
                 ) {
                     if (response?.body() == null) {
                         Log.d("Error List Schedule: ", "Error")
+                        nothingText.visibility = View.VISIBLE
                         return
                     }
 

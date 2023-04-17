@@ -5,7 +5,7 @@ import com.rnd.aedss_android.datamodel.RoomData
 import com.rnd.aedss_android.datamodel.SchedulesData
 import com.rnd.aedss_android.datamodel.device_data.DeviceData
 import com.rnd.aedss_android.datamodel.device_data.SchedulerData
-import com.rnd.aedss_android.datamodel.device_data.YoloData
+import com.rnd.aedss_android.datamodel.YoloData
 import com.rnd.aedss_android.datamodel.ResponseData
 import com.rnd.aedss_android.datamodel.body_model.*
 import com.rnd.aedss_android.utils.Constants.Companion.CHANGE_PASS_API

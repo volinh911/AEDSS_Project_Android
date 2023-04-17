@@ -129,5 +129,4 @@ class RoomListActivity : AppCompatActivity() {
                 Log.d("fb subscribe topic", msg)
             }
     }
-
 }

@@ -17,7 +17,7 @@ import com.rnd.aedss_android.R
 import com.rnd.aedss_android.datamodel.ConfigData
 import com.rnd.aedss_android.datamodel.ResponseData
 import com.rnd.aedss_android.datamodel.body_model.PostConfigBody
-import com.rnd.aedss_android.datamodel.device_data.YoloData
+import com.rnd.aedss_android.datamodel.YoloData
 import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.utils.Constants.Companion.ADD_SCHEDULE
 import com.rnd.aedss_android.utils.Constants.Companion.SCHEDULE

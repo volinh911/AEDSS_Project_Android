@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.ImageViewActivity
 import com.rnd.aedss_android.activity.RoomInfoActivity
+import com.rnd.aedss_android.utils.Constants.Companion.IMG_URL
 import com.rnd.aedss_android.viewmodel.Image
 import com.rnd.aedss_android.viewmodel.SectionImage
 
@@ -32,11 +33,11 @@ class ImageListAdapter(private val context: Context, imageList: List<Image>) :
 
     override fun onBindViewHolder(holder: ImageListViewHolder, position: Int) {
         val image = list[position]
-        var url = "https://docs.google.com/uc?id=${image.urlImage}"
+        var url = IMG_URL + image.urlImage
         Glide.with(holder.itemView.context)
             .load(url)
             .placeholder(R.drawable.ic_launcher_foreground)
-            .into(holder.image);
+            .into(holder.image)
 
         holder.imageItem.setOnClickListener {
             val intent = Intent(context, ImageViewActivity::class.java)

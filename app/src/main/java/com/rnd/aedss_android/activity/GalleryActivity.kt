@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.adapter.GalleryAdapter
 import com.rnd.aedss_android.datamodel.ImageData
-import com.rnd.aedss_android.datamodel.device_data.YoloData
+import com.rnd.aedss_android.datamodel.YoloData
 import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.utils.api.RetrofitInstance
 import com.rnd.aedss_android.utils.mqtt.MQTTClient
@@ -42,10 +42,6 @@ class GalleryActivity : AppCompatActivity() {
     var topicSubscribe: String = ""
     var requestPackage: String = ""
 
-    var dateString: String = ""
-    var detailString: String = ""
-
-
     val detailList = """
         [{"date": "2023-04-03", "ids": ["1k1h88DV6s6wZ1HwKKsltYgGvVDc_mLcT", "1BexwF2hTzYrSnOhi5kfsQFuTYXVbxgeP", "12EX3FgqKLCCMJo707Wf6tyoeKfbBUogc"]}, {"date": "2023-03-27", "ids": ["1TcRxybSmyANW8kbpQzzS71RhkhFBUrKs", "1ICho0YbJHsC6eD-M-mTFnkZTM4HL5cXL"]}]
     """
@@ -67,13 +63,13 @@ class GalleryActivity : AppCompatActivity() {
             Constants.CLIENT_ID + "_" + (('a'..'z').random()).toString() + "_" + ((0..1000).random()).toString()
         mqttClient = MQTTClient(this, Constants.BROKER, id)
 
-//        initYoloData()
+        initYoloData()
 
         sectionListRcv = findViewById(R.id.gallery_list)
         sectionListRcv.setHasFixedSize(true)
         sectionListRcv.layoutManager = LinearLayoutManager(this)
         sectionListRcv.adapter = GalleryAdapter(applicationContext, sectionImageList)
-        showGallery(detailList)
+//        showGallery(detailList)
     }
 
     private fun initYoloData() {

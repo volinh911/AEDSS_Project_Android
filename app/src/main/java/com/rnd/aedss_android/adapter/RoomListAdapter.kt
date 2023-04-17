@@ -2,25 +2,15 @@ package com.rnd.aedss_android.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rnd.aedss_android.viewmodel.Room
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.RoomInfoActivity
-import com.rnd.aedss_android.databinding.RoomItemBinding
-import com.rnd.aedss_android.datamodel.device_data.YoloData
-import com.rnd.aedss_android.utils.api.RetrofitInstance
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RoomListAdapter(private val context: Context, roomList: List<Room>) :
     RecyclerView.Adapter<RoomListAdapter.RoomListViewHolder>() {

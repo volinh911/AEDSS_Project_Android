@@ -96,6 +96,9 @@ public class Constants {
         const val GET_SCHEDULER_DETAIL_API: String = "api/v1/scheduler"
         const val GET_YOLO_DETAIL_API: String = "api/v1/yolov5/" //{roomName}
 
+        // for img url
+        const val IMG_URL: String = "https://docs.google.com/uc?id="
+
         // for MQTT
         const val BROKER = "tcp://rndaedss.ddns.net:1883"
         const val CLIENT_ID = "Android_MQTT_AEDSS"

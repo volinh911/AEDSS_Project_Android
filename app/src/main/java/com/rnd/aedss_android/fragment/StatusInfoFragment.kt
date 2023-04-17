@@ -12,15 +12,18 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.activity.GalleryActivity
 import com.rnd.aedss_android.activity.RoomListActivity
+import com.rnd.aedss_android.datamodel.YoloData
 import com.rnd.aedss_android.datamodel.device_data.*
 import com.rnd.aedss_android.utils.Constants.Companion.AC_DEVICE
 import com.rnd.aedss_android.utils.Constants.Companion.BROKER
 import com.rnd.aedss_android.utils.Constants.Companion.CLIENT_ID
 import com.rnd.aedss_android.utils.Constants.Companion.DOOR_DEVICE
+import com.rnd.aedss_android.utils.Constants.Companion.IMG_URL
 import com.rnd.aedss_android.utils.Constants.Companion.LIGHT_DEVICE
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD_MQTT
 import com.rnd.aedss_android.utils.Constants.Companion.REQUEST_AC_OFF
@@ -46,11 +49,13 @@ class StatusInfoFragment : Fragment() {
 
     private lateinit var acSection: LinearLayout
     private lateinit var acStatus: ImageView
+    private lateinit var acTemp: TextView
     private lateinit var lightSection: LinearLayout
     private lateinit var lightStatus: ImageView
     private lateinit var doorSection: LinearLayout
     private lateinit var doorStatus: ImageView
     private lateinit var gallerySection: LinearLayout
+    private lateinit var swipeLayout: SwipeRefreshLayout
 
     lateinit var roomSession: RoomPreferences
     lateinit var rcvRoom: String
@@ -78,6 +83,11 @@ class StatusInfoFragment : Fragment() {
     var isPublishLight: Boolean = false
     var isPublishDoor: Boolean = false
 
+    //topic for yolo
+    var topicPublish: String = ""
+    var topicSubscribe: String = ""
+    var requestPackage: String = ""
+
     private lateinit var mqttClient: MQTTClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +95,8 @@ class StatusInfoFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 disconnectMQTT()
+                var intent: Intent = Intent(context, RoomListActivity::class.java)
+                startActivity(intent)
             }
         })
     }
@@ -105,11 +117,36 @@ class StatusInfoFragment : Fragment() {
 
         acSection = view.findViewById(R.id.ac_section)
         acStatus = view.findViewById(R.id.ac_status)
+        acTemp = view.findViewById(R.id.ac_temp_tv)
         lightSection = view.findViewById(R.id.light_section)
         lightStatus = view.findViewById(R.id.light_status)
         doorSection = view.findViewById(R.id.door_section)
         doorStatus = view.findViewById(R.id.door_status)
         gallerySection = view.findViewById(R.id.gallery_section)
+
+        swipeLayout = view.findViewById(R.id.swipe)
+
+        swipeLayout.setOnRefreshListener {
+            disconnectMQTT()
+            swipeLayout.isRefreshing = false
+            //subscribe topic
+            acSubscribeTopic = ""
+            lightSubscribeTopic = ""
+            doorSubscribeTopic= ""
+            requestSubscribeTopic= "" // to request on/off ac and light
+            isSubscribeAc = false
+            isSubscribeLight = false
+
+            //publish topic
+            acPublishTopic = ""
+            lightPublishTopic = ""
+            doorPublishTopic = ""
+            isPublishAc= false
+            isPublishLight = false
+            isPublishDoor= false
+            connectMQTT()
+            initDeviceData()
+        }
 
         initDeviceData()
         connectMQTT()
@@ -220,6 +257,7 @@ class StatusInfoFragment : Fragment() {
         }
 
         if (roomSession.doesHaveYolo()!!) {
+            initYoloData()
             gallerySection.visibility = View.VISIBLE
             gallerySection.setOnClickListener {
                 val intent = Intent(context, GalleryActivity::class.java)
@@ -315,7 +353,7 @@ class StatusInfoFragment : Fragment() {
         }
 
         var alertText = dialogView.findViewById<TextView>(R.id.alert_dialog_text)
-        alertText.text = "There is an error occurred. Please restart and try again"
+        alertText.text = "There is an error occurred. Please try again"
     }
 
     private fun connectMQTT() {
@@ -329,7 +367,6 @@ class StatusInfoFragment : Fragment() {
 
             override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                 Log.d(this.javaClass.name, "Connection failure: ${exception.toString()}")
-                showAlertDialog()
             }
         },
             object : MqttCallback {
@@ -341,16 +378,24 @@ class StatusInfoFragment : Fragment() {
                     val msg = "Receive message: ${message.toString()} from topic: $topic"
                     Log.d(this.javaClass.name, msg)
 
-                    if (message.toString().contains("temp")) {
+                    if (message.toString().contains("acimageID")) {
                         acStatus.visibility = View.VISIBLE
-                        var msg = message.toString().replace("temp: ", "")
-                        if (msg == "0.0") {
-                            acStatus.setImageResource(R.drawable.off_icon)
-                            onClickDeviceSection(acSection, "AC", false)
-                        } else {
-                            acStatus.setImageResource(R.drawable.on_icon)
-                            onClickDeviceSection(acSection, "AC", true)
+                        var msg = message.toString().replace("{\"acimageID: \":", "")
+                        msg = msg.replace("\"", "")
+                        msg = msg.replace("}", "")
+                        msg = msg.replace(" ", "")
+
+                        var url = IMG_URL + msg
+                        context?.let {
+                            Glide.with(it)
+                                .load(url)
+                                .placeholder(R.drawable.ic_launcher_foreground)
+                                .into(acStatus)
                         }
+                    }
+                     else if (message.toString().contains("temp")) {
+                        acTemp.visibility = View.VISIBLE
+                        acTemp.text = message.toString()
                     } else if (message.toString().contains("light")) {
                         lightStatus.visibility = View.VISIBLE
                         val msg = message.toString().replace("light: ", "")
@@ -400,6 +445,9 @@ class StatusInfoFragment : Fragment() {
                     if (topic == doorPublishTopic) {
                         publishTopic(doorSubscribeTopic, REQUEST_DOOR)
                     }
+                    if (topic == topicPublish) {
+                        publishTopic(topicSubscribe, requestPackage)
+                    }
                 }
 
                 override fun onFailure(
@@ -418,6 +466,10 @@ class StatusInfoFragment : Fragment() {
     // subscribe topic Publish
     private fun subscribeDeviceTopic() {
         Log.d("in here", "subscribe")
+        Log.d("topicPublish", topicPublish)
+
+        subscribeTopic(topicPublish)
+
         if (acPublishTopic.isNotEmpty() && !isPublishAc) {
             subscribeTopic(acPublishTopic)
             isPublishAc = true
@@ -459,11 +511,11 @@ class StatusInfoFragment : Fragment() {
                                 onClickDeviceSection(lightSection, LIGHT_DEVICE, false)
                             }
                             REQUEST_AC_OFF -> {
-                                acStatus.setImageResource(R.drawable.off_icon)
+//                                acStatus.setImageResource(R.drawable.off_icon)
                                 onClickDeviceSection(acSection, AC_DEVICE, false)
                             }
                             REQUEST_AC_ON -> {
-                                acStatus.setImageResource(R.drawable.on_icon)
+//                                acStatus.setImageResource(R.drawable.on_icon)
                                 onClickDeviceSection(acSection, AC_DEVICE, true)
                             }
                         }
@@ -514,8 +566,9 @@ class StatusInfoFragment : Fragment() {
             mqttClient.disconnect(object : IMqttActionListener {
                 override fun onSuccess(asyncActionToken: IMqttToken?) {
                     Log.d(this.javaClass.name, "Disconnected")
-                    var intent: Intent = Intent(context, RoomListActivity::class.java)
-                    startActivity(intent)
+//                    var intent: Intent = Intent(context, RoomListActivity::class.java)
+//                    startActivity(intent)
+//                    connectMQTT()
                 }
 
                 override fun onFailure(
@@ -527,8 +580,44 @@ class StatusInfoFragment : Fragment() {
                 }
             })
         } else {
-            Log.d(this.javaClass.name, "Impossible to disconnect, no server connected")
-            showAlertDialog()
+            Log.d("disconnect", "Impossible to disconnect, no server connected")
         }
+    }
+
+    private fun initYoloData() {
+        RetrofitInstance.apiServiceInterface.getYoloDetail(auth, userid, rcvRoom)
+            .enqueue(object : Callback<List<YoloData>> {
+                override fun onResponse(
+                    call: Call<List<YoloData>>,
+                    response: Response<List<YoloData>>
+                ) {
+                    if (response.body() == null) {
+                        showAlertDialog()
+                        Log.d("Error yolo: ", "Error")
+                        return
+                    } else {
+                        var result = response.body()!!
+                        for (item in result) {
+                            if (item.publish != null) {
+                                topicPublish = item.publish!!
+                            }
+                            if (item.subscribe != null) {
+                                topicSubscribe = item.subscribe!!
+                            }
+                            for (request in item.request) {
+                                if (request.contains("serverRequestACID")) {
+                                    requestPackage = request
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<YoloData>>, t: Throwable) {
+                    Log.d("Error yolo: ", "Error")
+                }
+
+            })
     }
 }

@@ -1,4 +1,4 @@
-package com.rnd.aedss_android.datamodel.device_data
+package com.rnd.aedss_android.datamodel
 
 data class YoloData(
     var _id: String? = null,
