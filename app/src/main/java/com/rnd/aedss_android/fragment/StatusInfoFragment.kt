@@ -379,7 +379,7 @@ class StatusInfoFragment : Fragment() {
                     Log.d(this.javaClass.name, msg)
 
                     if (message.toString().contains("acimageID")) {
-                        acStatus.visibility = View.VISIBLE
+//                        acStatus.visibility = View.VISIBLE
                         var msg = message.toString().replace("{\"acimageID: \":", "")
                         msg = msg.replace("\"", "")
                         msg = msg.replace("}", "")
