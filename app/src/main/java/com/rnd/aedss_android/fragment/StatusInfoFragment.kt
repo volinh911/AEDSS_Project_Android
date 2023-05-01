@@ -399,7 +399,7 @@ class StatusInfoFragment : Fragment() {
                     } else if (message.toString().contains("light")) {
                         lightStatus.visibility = View.VISIBLE
                         val msg = message.toString().replace("light: ", "")
-                        if (msg == "1") {
+                        if (msg == "0") {
                             lightStatus.setImageResource(R.drawable.off_icon)
                             onClickDeviceSection(lightSection, "Light", false)
                         } else {
@@ -409,7 +409,7 @@ class StatusInfoFragment : Fragment() {
                     } else {
                         val msg = message.toString().replace("door:", "")
                         doorStatus.visibility = View.VISIBLE
-                        if (msg == "1") {
+                        if (msg == "0") {
                             doorStatus.setImageResource(R.drawable.unlocked_ic)
                             onClickDeviceSection(doorSection, DOOR_DEVICE, false)
 
@@ -446,6 +446,7 @@ class StatusInfoFragment : Fragment() {
                         publishTopic(doorSubscribeTopic, REQUEST_DOOR)
                     }
                     if (topic == topicPublish) {
+                        Log.d("yolo", "yolo")
                         publishTopic(topicSubscribe, requestPackage)
                     }
                 }
@@ -472,13 +473,16 @@ class StatusInfoFragment : Fragment() {
 
         if (acPublishTopic.isNotEmpty() && !isPublishAc) {
             subscribeTopic(acPublishTopic)
+//            subscribeTopic("Linh")
             isPublishAc = true
         }
         if (lightPublishTopic.isNotEmpty() && !isPublishLight) {
+//            subscribeTopic("Linh")
             subscribeTopic(lightPublishTopic)
             isPublishLight = true
         }
         if (doorPublishTopic.isNotEmpty() && !isPublishDoor) {
+//            subscribeTopic("Linh")
             subscribeTopic(doorPublishTopic)
             isPublishDoor = true
         }

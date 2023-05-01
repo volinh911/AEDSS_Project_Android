@@ -34,12 +34,12 @@ interface APIServiceInterface {
 
     @POST(CHECK_EMAIL_API)
     fun checkEmail(
-        @Body email: String
+        @Body body: PostEmailBody
     ): Call<ResponseData>
 
     @POST(SEND_TOKEN_API)
     fun sendToken(
-        @Body email: String
+        @Body body: PostEmailBody
     ): Call<ResponseData>
 
     @POST(VALIDATE_TOKEN_API)

@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.rnd.aedss_android.R
 import com.rnd.aedss_android.datamodel.ResponseData
+import com.rnd.aedss_android.datamodel.body_model.PostEmailBody
 import com.rnd.aedss_android.datamodel.body_model.PostValidateUserBody
-import com.rnd.aedss_android.utils.Constants
 import com.rnd.aedss_android.utils.Constants.Companion.EMPTY_INPUT
 import com.rnd.aedss_android.utils.Constants.Companion.ERROR_NOTIFY
 import com.rnd.aedss_android.utils.Constants.Companion.PASSWORD_INTENT
@@ -73,7 +73,8 @@ class ForgotPassActivity : AppCompatActivity() {
     }
 
     private fun checkEmail(email: String) {
-        RetrofitInstance.apiServiceInterface.checkEmail(email)
+        var body = PostEmailBody(email)
+        RetrofitInstance.apiServiceInterface.checkEmail(body)
             .enqueue(object: Callback<ResponseData>{
                 override fun onResponse(
                     call: Call<ResponseData>,
@@ -104,7 +105,8 @@ class ForgotPassActivity : AppCompatActivity() {
     }
 
     private fun sendToken(email: String) {
-        RetrofitInstance.apiServiceInterface.sendToken(email)
+        var body = PostEmailBody(email)
+        RetrofitInstance.apiServiceInterface.sendToken(body)
             .enqueue(object: Callback<ResponseData>{
                 override fun onResponse(
                     call: Call<ResponseData>,
