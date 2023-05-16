@@ -2,6 +2,7 @@ package com.rnd.aedss_android.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -67,6 +68,7 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
     override fun onBindViewHolder(holder: TimeDetailViewHoler, position: Int) {
         authSession = AuthenticationPreferences(context)
         auth = authSession.getAuthToken().toString()
+        Log.d("auth: ", auth)
         userid = authSession.getUserid().toString()
 
         roomSession = RoomPreferences(context)
@@ -148,7 +150,13 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         }
 
         holder.deleteSchedule.setOnClickListener {
-            showDeleteAlertDialog(time.scheduleId)
+            if (time.from != "-1" && time.to == "-1")
+                showDeleteAlertDialog(time.scheduleId, true, false)
+            else if (time.to != "-1" && time.from == "-1")
+                showDeleteAlertDialog(time.scheduleId, false, true)
+            else if (time.from != "-1" && time.to != "-1") {
+                showDeleteAlertDialog(time.scheduleId, true, true)
+            }
         }
     }
 
@@ -172,8 +180,6 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
                     if (result.success == false) {
                         showAlertDialog(ALERT)
                     } else {
-                        var request = "schedule:${scheduleId}-delete@$userid"
-                        connectMQTT(request)
                         showAlertDialog("")
                     }
                 }
@@ -224,12 +230,12 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         }
     }
 
-    private fun connectMQTT(request: String) {
+    private fun connectMQTT(request: String, scheduleId: String, on: Boolean, off: Boolean) {
         mqttClient.connect(
             Constants.USERNAME_MQTT, Constants.PASSWORD_MQTT, object : IMqttActionListener {
                 override fun onSuccess(asyncActionToken: IMqttToken?) {
                     Log.d(this.javaClass.name, "Connection success")
-                    publishTopic(request)
+                    publishTopic(request, scheduleId, on, off)
                 }
 
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
@@ -254,12 +260,30 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
             })
     }
 
-    private fun publishTopic(request: String) {
+    private fun publishTopic(request: String, scheduleId: String, on: Boolean, off: Boolean) {
         var topic = "scheduler/server"
-
         mqttClient.publish(topic, request, 0, false, object : IMqttActionListener {
             override fun onSuccess(asyncActionToken: IMqttToken?) {
-                val msg = "Publish message: $request to topic $topic"
+                val msg = "Publish message schedule: $request to topic $topic"
+                // on + off
+                if (off && on) {
+                    var requestOff = "schedule:${scheduleId}-delete(off)@$userid"
+                    connectMQTT(requestOff, scheduleId, false, true)
+                }
+                // on
+                else if (on&& !off) {
+                    Handler().postDelayed({
+                        //doSomethingHere()
+                        deleteSchedule(scheduleId)
+                    }, 1000)
+                }
+                // off
+                else if (off && !on) {
+                    Handler().postDelayed({
+                        //doSomethingHere()
+                        deleteSchedule(scheduleId)
+                    }, 1000)
+                }
                 Log.d(this.javaClass.name, msg)
             }
 
@@ -289,7 +313,7 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         }
     }
 
-    private fun showDeleteAlertDialog(scheduleId: String) {
+    private fun showDeleteAlertDialog(scheduleId: String, on: Boolean, off: Boolean) {
         val dialogView = View.inflate(context, R.layout.logout_alert_dialog, null)
         val builder = android.app.AlertDialog.Builder(context)
         builder.setView(dialogView)
@@ -315,10 +339,24 @@ class TimeDetailAdapter(private val context: Context, timeList: List<TimeDetail>
         }
 
         okSection.setOnClickListener {
-            deleteSchedule(scheduleId)
+            if (on) {
+                var request = "schedule:${scheduleId}-delete(on)@$userid"
+                connectMQTT(request, scheduleId, on, off)
+            }
+            else if (off && !on) {
+                var request = "schedule:${scheduleId}-delete(off)@$userid"
+                connectMQTT(request, scheduleId, false, off)
+            }
         }
         okBtn.setOnClickListener {
-            deleteSchedule(scheduleId)
+            if (on) {
+                var request = "schedule:${scheduleId}-delete(on)@$userid"
+                connectMQTT(request, scheduleId, on, off)
+            }
+            if (off && !on) {
+                var request = "schedule:${scheduleId}-delete(off)@$userid"
+                connectMQTT(request, scheduleId, false, off)
+            }
         }
 
     }

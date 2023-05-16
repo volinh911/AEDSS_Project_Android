@@ -97,7 +97,7 @@ class TimeListInfoFragment : Fragment() {
                             scheduleId = item._id!!
                         }
 
-                        if (item.repeat.equals("no")) {
+                        if (item.rerun.equals("no")) {
                             timeList.add(TimeDetail(scheduleId, day, device, false, from, to))
                         } else {
                             timeList.add(TimeDetail(scheduleId, day, device, true, from, to))

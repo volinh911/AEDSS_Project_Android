@@ -208,7 +208,8 @@ class RoomInfoActivity : AppCompatActivity() {
     }
 
     private fun postConfig(loopTime: String) {
-        var body = PostConfigBody(userid, rcvRoom, loopTime)
+        var loop = Integer. parseInt(loopTime)
+        var body = PostConfigBody(userid, rcvRoom, loop.toString())
         RetrofitInstance.apiServiceInterface.postConfig(auth, userid, body)
             .enqueue(object : Callback<ResponseData> {
                 override fun onResponse(

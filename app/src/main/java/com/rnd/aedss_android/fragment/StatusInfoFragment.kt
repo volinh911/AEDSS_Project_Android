@@ -71,7 +71,7 @@ class StatusInfoFragment : Fragment() {
     var acSubscribeTopic: String = ""
     var lightSubscribeTopic: String = ""
     var doorSubscribeTopic: String = ""
-    var requestSubscribeTopic: String = "" // to request on/off ac and light
+    var requestSubscribeTopicAcLight: String = "" // to request on/off ac and light
     var isSubscribeAc: Boolean = false
     var isSubscribeLight: Boolean = false
 
@@ -84,9 +84,9 @@ class StatusInfoFragment : Fragment() {
     var isPublishDoor: Boolean = false
 
     //topic for yolo
-    var topicPublish: String = ""
-    var topicSubscribe: String = ""
-    var requestPackage: String = ""
+    var topicPublishYolo: String = ""
+    var topicSubscribeYolo: String = ""
+    var requestPackageYolo: String = ""
 
     private lateinit var mqttClient: MQTTClient
 
@@ -133,7 +133,7 @@ class StatusInfoFragment : Fragment() {
             acSubscribeTopic = ""
             lightSubscribeTopic = ""
             doorSubscribeTopic= ""
-            requestSubscribeTopic= "" // to request on/off ac and light
+            requestSubscribeTopicAcLight= "" // to request on/off ac and light
             isSubscribeAc = false
             isSubscribeLight = false
 
@@ -211,7 +211,7 @@ class StatusInfoFragment : Fragment() {
                 doorSubscribeTopic = topic
             }
             if (topic.contains(AC_DEVICE)) {
-                requestSubscribeTopic = topic
+                requestSubscribeTopicAcLight = topic
             }
         }
     }
@@ -295,7 +295,7 @@ class StatusInfoFragment : Fragment() {
             powerDialog.dismiss()
             showDeviceAlertDialog(false)
 
-        } else {
+        } else if (title == LIGHT_DEVICE) {
             if (status) {
                 powerDialogCurrentStatus.text = TURN_ON
                 powerDialogNextStatus.text = TURN_OFF
@@ -309,26 +309,14 @@ class StatusInfoFragment : Fragment() {
             layoutParams.setMargins(50, 0, 0, 0)
             powerDialogOkButton.layoutParams = layoutParams
             powerDialogOkButton.setOnClickListener {
-                when (title) {
-                    AC_DEVICE -> {
-                        if (status) {
-                            publishTopic(requestSubscribeTopic, REQUEST_AC_OFF)
-                        } else {
-                            publishTopic(requestSubscribeTopic, REQUEST_AC_ON)
-                        }
-                    }
-                    LIGHT_DEVICE -> {
-                        if (status) {
-                            publishTopic(requestSubscribeTopic, REQUEST_LIGHT_OFF)
-                        } else {
-                            publishTopic(requestSubscribeTopic, REQUEST_LIGHT_ON)
-                        }
-                    }
+                if (status) {
+                    publishTopic(requestSubscribeTopicAcLight, REQUEST_LIGHT_OFF)
+                } else {
+                    publishTopic(requestSubscribeTopicAcLight, REQUEST_LIGHT_ON)
                 }
                 powerDialog.dismiss()
             }
         }
-
     }
 
     private fun showAlertDialog() {
@@ -396,9 +384,10 @@ class StatusInfoFragment : Fragment() {
                      else if (message.toString().contains("temp")) {
                         acTemp.visibility = View.VISIBLE
                         acTemp.text = message.toString()
+                        onClickAC(message.toString())
                     } else if (message.toString().contains("light")) {
                         lightStatus.visibility = View.VISIBLE
-                        val msg = message.toString().replace("light: ", "")
+                        val msg = message.toString().replace("light:", "")
                         if (msg == "0") {
                             lightStatus.setImageResource(R.drawable.off_icon)
                             onClickDeviceSection(lightSection, "Light", false)
@@ -427,6 +416,40 @@ class StatusInfoFragment : Fragment() {
             })
     }
 
+    private fun onClickAC(degree: String) {
+        acSection.setOnClickListener {
+            val dialogView = View.inflate(context, R.layout.ac_power_dialog, null)
+            val builder = AlertDialog.Builder(context)
+            builder.setView(dialogView)
+
+            val powerDialog = builder.create()
+            powerDialog.show()
+            powerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+            var onBtn = dialogView.findViewById<Button>(R.id.on_btn)
+            var onBtnSession = dialogView.findViewById<CardView>(R.id.on_section)
+            var offBtn = dialogView.findViewById<Button>(R.id.off_btn)
+            var offBtnSession = dialogView.findViewById<CardView>(R.id.off_section)
+            var degreeText = dialogView.findViewById<TextView>(R.id.status_text)
+
+            degreeText.text = degree
+
+            onBtn.setOnClickListener {
+                publishTopic(requestSubscribeTopicAcLight, REQUEST_AC_ON)
+            }
+            onBtnSession.setOnClickListener{
+                publishTopic(requestSubscribeTopicAcLight, REQUEST_AC_ON)
+            }
+
+            offBtn.setOnClickListener {
+                publishTopic(requestSubscribeTopicAcLight, REQUEST_AC_OFF)
+            }
+            offBtnSession.setOnClickListener {
+                publishTopic(requestSubscribeTopicAcLight, REQUEST_AC_OFF)
+            }
+        }
+    }
+
     private fun subscribeTopic(topic: String) {
         if (mqttClient.isConnected()) {
             mqttClient.subscribe(topic, 0, object : IMqttActionListener {
@@ -445,9 +468,9 @@ class StatusInfoFragment : Fragment() {
                     if (topic == doorPublishTopic) {
                         publishTopic(doorSubscribeTopic, REQUEST_DOOR)
                     }
-                    if (topic == topicPublish) {
+                    if (topic == topicPublishYolo) {
                         Log.d("yolo", "yolo")
-                        publishTopic(topicSubscribe, requestPackage)
+                        publishTopic(topicSubscribeYolo, requestPackageYolo)
                     }
                 }
 
@@ -467,9 +490,9 @@ class StatusInfoFragment : Fragment() {
     // subscribe topic Publish
     private fun subscribeDeviceTopic() {
         Log.d("in here", "subscribe")
-        Log.d("topicPublish", topicPublish)
+        Log.d("topicPublish", topicPublishYolo)
 
-        subscribeTopic(topicPublish)
+        subscribeTopic(topicPublishYolo)
 
         if (acPublishTopic.isNotEmpty() && !isPublishAc) {
             subscribeTopic(acPublishTopic)
@@ -499,8 +522,8 @@ class StatusInfoFragment : Fragment() {
                 val msg = "Publish message: $request to topic $topic"
                 Log.d(this.javaClass.name, msg)
 
-                if (topic == requestSubscribeTopic) {
-                    if (requestSubscribeTopic.isEmpty()) {
+                if (topic == requestSubscribeTopicAcLight) {
+                    if (requestSubscribeTopicAcLight.isEmpty()) {
                         showDeviceAlertDialog(false)
                     } else {
                         showDeviceAlertDialog(true)
@@ -603,14 +626,14 @@ class StatusInfoFragment : Fragment() {
                         var result = response.body()!!
                         for (item in result) {
                             if (item.publish != null) {
-                                topicPublish = item.publish!!
+                                topicPublishYolo = item.publish!!
                             }
                             if (item.subscribe != null) {
-                                topicSubscribe = item.subscribe!!
+                                topicSubscribeYolo = item.subscribe!!
                             }
                             for (request in item.request) {
                                 if (request.contains("serverRequestACID")) {
-                                    requestPackage = request
+                                    requestPackageYolo = request
                                     break
                                 }
                             }

@@ -14,6 +14,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/door_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:weightSum="4"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:src="@drawable/door_icon"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/inconsolata"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="18dp"
+                android:layout_gravity="center"
+                android:text="Door"/>
+
+            <ImageView
+                android:id="@+id/door_status"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/gallery_section"
@@ -83,46 +122,6 @@
                 android:layout_gravity="center"
                 android:visibility="gone"
                 android:src="@drawable/on_icon"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/door_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:weightSum="4"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:src="@drawable/door_icon"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:fontFamily="@font/inconsolata"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:layout_marginLeft="18dp"
-                android:layout_gravity="center"
-                android:text="Door"/>
-
-            <ImageView
-                android:id="@+id/door_status"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                 />
 
         </LinearLayout>
 

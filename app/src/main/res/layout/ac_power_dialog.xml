@@ -14,7 +14,6 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/power_dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="true"
@@ -23,18 +22,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:fontFamily="@font/inconsolata"
-            android:textColor="@color/button_color"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:text="'s power"
+            android:text="AC's Controller"
             />
 
     </LinearLayout>
@@ -87,21 +75,8 @@
             android:fontFamily="@font/inconsolata"
             android:textColor="@color/background_color"
             android:textSize="15sp"
-            android:text="Do you want to"
+            android:text="What do you want to do? "
             />
-
-        <TextView
-            android:id="@+id/question_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inconsolata"
-            android:textColor="@color/button_color"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="OFF"
-            android:layout_marginLeft="5dp"
-            />
-
     </LinearLayout>
 
     <LinearLayout
@@ -113,7 +88,7 @@
         android:gravity="center">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cancel_section"
+            android:id="@+id/off_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
@@ -123,11 +98,11 @@
             >
 
             <Button
-                android:id="@+id/cancel_btn"
+                android:id="@+id/off_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/background_color"
-                android:text="Cancel"
+                android:text="Turn off"
                 android:textSize="15sp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/inconsolata"
@@ -135,21 +110,22 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/ok_section"
+            android:id="@+id/on_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="5dp"
             app:cardBackgroundColor="@android:color/transparent"
             android:background="?android:attr/selectableItemBackground"
             app:cardElevation="0dp"
+            android:layout_marginLeft="10dp"
             >
 
             <Button
-                android:id="@+id/ok_btn"
+                android:id="@+id/on_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/button_color"
-                android:text="OK"
+                android:text="Turn on"
                 android:textSize="15sp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/inconsolata"

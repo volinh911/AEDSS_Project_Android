@@ -7,7 +7,7 @@ data class PostScheduleBody(
     var room: String? = null,
     var timeOn: String? = null,
     var timeOff: String? = null,
-    var repeat: String? = null,
+    var rerun: String? = null,
     var dayOfTheWeek: String? = null,
     var request: String? = null
 )
