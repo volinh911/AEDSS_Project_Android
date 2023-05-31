@@ -496,16 +496,13 @@ class StatusInfoFragment : Fragment() {
 
         if (acPublishTopic.isNotEmpty() && !isPublishAc) {
             subscribeTopic(acPublishTopic)
-//            subscribeTopic("Linh")
             isPublishAc = true
         }
         if (lightPublishTopic.isNotEmpty() && !isPublishLight) {
-//            subscribeTopic("Linh")
             subscribeTopic(lightPublishTopic)
             isPublishLight = true
         }
         if (doorPublishTopic.isNotEmpty() && !isPublishDoor) {
-//            subscribeTopic("Linh")
             subscribeTopic(doorPublishTopic)
             isPublishDoor = true
         }
@@ -538,11 +535,9 @@ class StatusInfoFragment : Fragment() {
                                 onClickDeviceSection(lightSection, LIGHT_DEVICE, false)
                             }
                             REQUEST_AC_OFF -> {
-//                                acStatus.setImageResource(R.drawable.off_icon)
                                 onClickDeviceSection(acSection, AC_DEVICE, false)
                             }
                             REQUEST_AC_ON -> {
-//                                acStatus.setImageResource(R.drawable.on_icon)
                                 onClickDeviceSection(acSection, AC_DEVICE, true)
                             }
                         }
